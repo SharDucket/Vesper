@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="Квента Vesper — экспериментальной боевой куклы Sangvis Ferri, доработанной Svarog Heavy Industries.">
+  <title>VESPER — оперативное досье</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #09090b;
+      --panel: #141215;
+      --panel-dark: #100e10;
+      --line: #38282c;
+      --text: #f4f0ef;
+      --muted: #b5aaab;
+      --red: #f04a56;
+      --red-dark: #7d1d29;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 80% 4%, rgba(130, 22, 37, .22), transparent 34%),
+        radial-gradient(ellipse at 0% 48%, rgba(88, 13, 26, .11), transparent 28%),
+        var(--bg);
+      font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    ::selection {
+      background: var(--red);
+      color: #130608;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--red);
+      outline-offset: 4px;
+    }
+
+    p {
+      margin: 0 0 1em;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .skip {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 100;
+      padding: 10px 14px;
+      background: var(--red);
+      color: #100507;
+      transform: translateY(-150%);
+    }
+
+    .skip:focus {
+      transform: translateY(0);
+    }
+
+    /* Навигация */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(240, 74, 86, .18);
+      background: rgba(9, 9, 11, .93);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      min-height: 72px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      font-weight: 900;
+      letter-spacing: .12em;
+      font-size: .9rem;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--red);
+      color: var(--red);
+      font-size: .68rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      margin-left: auto;
+      color: #c2b7b8;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .nav a {
+      white-space: nowrap;
+      transition: color .2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--red);
+    }
+
+    .top-code {
+      flex-shrink: 0;
+      color: #9f8f92;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .7rem;
+      letter-spacing: .08em;
+    }
+
+    /* Первый экран */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .8fr);
+      align-items: center;
+      gap: clamp(35px, 7vw, 100px);
+      padding-top: 65px;
+      padding-bottom: 75px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 20px;
+      color: var(--red);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .74rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--red);
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 10vw, 8.5rem);
+      font-weight: 900;
+      letter-spacing: -.075em;
+      line-height: .85;
+    }
+
+    .hero h1 span {
+      color: var(--red);
+    }
+
+    .hero-model {
+      margin: 22px 0 0;
+      color: #e1d7d8;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .83rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+    }
+
+    .hero-description {
+      max-width: 540px;
+      margin: 27px 0 0;
+      color: #c2b9b9;
+      font-size: clamp(1rem, 1.5vw, 1.12rem);
+      line-height: 1.8;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      min-height: 48px;
+      padding: 12px 20px;
+      border: 1px solid var(--red);
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .04em;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: var(--red);
+      color: #140608;
+    }
+
+    .button-primary:hover {
+      background: #ff6972;
+    }
+
+    .button-secondary {
+      border-color: #5c4549;
+      color: var(--text);
+    }
+
+    .button-secondary:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 555px;
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-facts strong,
+    .hero-facts small {
+      display: block;
+    }
+
+    .hero-facts strong {
+      color: var(--text);
+      font-size: clamp(.88rem, 1.5vw, 1.08rem);
+      overflow-wrap: anywhere;
+    }
+
+    .hero-facts small {
+      margin-top: 5px;
+      color: #a29597;
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+
+    .portrait {
+      position: relative;
+      justify-self: end;
+      width: min(100%, 430px);
+      margin: 0;
+      overflow: hidden;
+      border: 1px solid #6b3039;
+      background: #171216;
+    }
+
+    .portrait img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 768 / 1365;
+      object-fit: cover;
+      filter: saturate(.75) contrast(1.05);
+    }
+
+    .portrait::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, transparent 52%, rgba(9, 7, 9, .92) 100%),
+        linear-gradient(90deg, rgba(137, 19, 37, .22), transparent 55%);
+    }
+
+    .portrait-caption {
+      position: absolute;
+      z-index: 1;
+      right: 20px;
+      bottom: 18px;
+      left: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #e7dfe0;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .67rem;
+      letter-spacing: .08em;
+    }
+
+    .portrait-caption span:last-child {
+      color: #ff7c85;
+      text-align: right;
+    }
+
+    .ribbon {
+      overflow: hidden;
+      border-top: 1px solid #4a242a;
+      border-bottom: 1px solid #4a242a;
+      background: #1c0d11;
+      color: #d0babc;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .72rem;
+      letter-spacing: .12em;
+    }
+
+    .ribbon-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 20px;
+      padding-top: 13px;
+      padding-bottom: 13px;
+    }
+
+    .ribbon b {
+      color: var(--red);
+    }
+
+    /* Общие блоки */
+
+    .section {
+      padding-top: 85px;
+      padding-bottom: 85px;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 100px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 34px;
+    }
+
+    .section-number {
+      color: var(--red);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .8rem;
+      font-weight: 700;
+      padding-top: 8px;
+    }
+
+    .section-kicker {
+      margin: 0 0 8px;
+      color: #aa9699;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 3.6vw, 3rem);
+      font-weight: 850;
+      letter-spacing: -.04em;
+    }
+
+    .panel {
+      padding: clamp(22px, 3vw, 34px);
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(24, 20, 23, .98), rgba(15, 13, 15, .98));
+    }
+
+    .panel h3 {
+      margin-bottom: 18px;
+      font-size: clamp(1.25rem, 2vw, 1.65rem);
+      letter-spacing: -.025em;
+    }
+
+    .panel p,
+    .event p,
+    .ability p {
+      color: #c9c0c0;
+    }
+
+    .panel p:last-child,
+    .event p:last-child,
+    .ability p:last-child {
+      margin-bottom: 0;
+    }
+
+    .panel-label {
+      display: block;
+      margin-bottom: 14px;
+      color: var(--red);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .69rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* Досье */
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+    }
+
+    .data-list {
+      margin: 0;
+    }
+
+    .data-list > div {
+      display: grid;
+      grid-template-columns: minmax(120px, .65fr) 1fr;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .07);
+    }
+
+    .data-list > div:last-child {
+      border-bottom: 0;
+    }
+
+    .data-list dt {
+      color: #ac9fa1;
+      font-size: .88rem;
+    }
+
+    .data-list dd {
+      margin: 0;
+      color: #f0e9e9;
+      font-size: .9rem;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .role-panel {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(171, 34, 48, .20), transparent 52%),
+        linear-gradient(145deg, #1c1215, #110e10);
+    }
+
+    .role-panel h3 {
+      max-width: 360px;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      line-height: 1.08;
+    }
+
+    .role-panel h3 span {
+      color: var(--red);
+    }
+
+    .role-panel p {
+      max-width: 430px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tags li {
+      padding: 6px 9px;
+      border: 1px solid #573138;
+      background: rgba(122, 29, 41, .12);
+      color: #e5c8ca;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .67rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+
+    /* Системы */
+
+    .systems-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .systems-wide {
+      grid-column: 1 / -1;
+    }
+
+    .bullet-list {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding: 7px 0 7px 18px;
+      color: #d1c8c8;
+    }
+
+    .bullet-list li::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 28px;
+    }
+
+    .limit-note {
+      margin-top: 24px;
+      padding: 16px 18px;
+      border-left: 3px solid var(--red);
+      background: rgba(136, 32, 44, .12);
+    }
+
+    .limit-note p {
+      margin: 0;
+    }
+
+    /* Способности */
+
+    .ability-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .ability {
+      position: relative;
+      min-width: 0;
+      padding: clamp(22px, 3vw, 32px);
+      border: 1px solid var(--line);
+      background: var(--panel-dark);
+    }
+
+    .ability-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 25px;
+      color: #b7a8aa;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .ability-top span:last-child {
+      color: var(--red);
+    }
+
+    .ability h3 {
+      margin-bottom: 16px;
+      font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+      letter-spacing: -.03em;
+    }
+
+    .ability-ultimate {
+      border-color: #a73543;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(190, 40, 56, .2), transparent 55%),
+        linear-gradient(145deg, #211116, #120d0f);
+    }
+
+    .ability-ultimate h3 {
+      color: #fff4f3;
+    }
+
+    .shield-display {
+      margin-top: 25px;
+      padding: 16px;
+      border: 1px solid rgba(240, 74, 86, .35);
+      background: rgba(0, 0, 0, .24);
+    }
+
+    .shield-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #e5c9cb;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .72rem;
+      font-weight: 700;
+    }
+
+    .shield-row strong {
+      color: #ff7a83;
+      white-space: nowrap;
+    }
+
+    .shield-bar {
+      height: 8px;
+      margin-top: 12px;
+      background: #4e1c23;
+    }
+
+    .shield-bar span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, #aa2536, #ff6670);
+    }
+
+    .shield-note {
+      margin-top: 15px !important;
+      color: #bba5a8 !important;
+      font-size: .8rem;
+      line-height: 1.6;
+    }
+
+    /* История */
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: minmax(150px, .32fr) 1fr;
+      gap: 32px;
+      padding: clamp(22px, 3vw, 32px);
+      border: 1px solid var(--line);
+      border-left: 3px solid #9c2e3c;
+      background: rgba(20, 18, 21, .86);
+    }
+
+    .event-date {
+      display: block;
+      margin-bottom: 11px;
+      color: var(--red);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+    }
+
+    .event h3 {
+      font-size: 1.2rem;
+      letter-spacing: -.02em;
+    }
+
+    .event-body {
+      max-width: 760px;
+    }
+
+    /* Подвал */
+
+    footer {
+      padding: 36px 0 42px;
+      color: #9c8d90;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .7rem;
+      letter-spacing: .06em;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-inner strong {
+      color: #e6d8da;
+    }
+
+    .back-top {
+      color: #f17a84;
+    }
+
+    /* Мобильная версия */
+
+    @media (max-width: 850px) {
+      .top-code {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .portrait {
+        justify-self: center;
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      html {
+        scroll-padding-top: 125px;
+      }
+
+      .topbar-inner {
+        flex-wrap: wrap;
+        gap: 11px;
+        padding-top: 12px;
+        padding-bottom: 10px;
+      }
+
+      .brand {
+        width: 100%;
+      }
+
+      .nav {
+        width: 100%;
+        gap: 22px;
+        margin-left: 0;
+        padding-bottom: 4px;
+        overflow-x: auto;
+      }
+
+      .hero {
+        padding-top: 54px;
+        padding-bottom: 55px;
+      }
+
+      .hero-facts {
+        margin-top: 36px;
+      }
+
+      .section {
+        padding-top: 62px;
+        padding-bottom: 62px;
+        scroll-margin-top: 125px;
+      }
+
+      .systems-grid,
+      .ability-grid,
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+
+      .systems-wide {
+        grid-column: auto;
+      }
+
+      .event {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .button,
+      .nav a {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip" href="#main">Перейти к содержимому</a>
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#top" aria-label="Vesper — наверх">
+        <span class="brand-mark">SF</span>
+        <span>VESPER</span>
+      </a>
+
+      <nav class="nav" aria-label="Навигация по досье">
+        <a href="#profile">Досье</a>
+        <a href="#systems">Системы</a>
+        <a href="#abilities">Способности</a>
+        <a href="#history">История</a>
+      </nav>
+
+      <span class="top-code">SF / DSB-8509-EX</span>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" id="top" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Оперативное досье / Sangvis Ferri × S.H.I.</p>
+
+        <h1 id="hero-title">VESPER<span>.</span></h1>
+
+        <p class="hero-model">
+          SF/DSB-8509-EX // SPECIAL OPS-TYPE RINGLEADER
+        </p>
+
+        <p class="hero-description">
+          Экспериментальная боевая кукла, созданная Sangvis Ferri
+          для командования малыми группами. После доработки Svarog
+          Heavy Industries проходит полевые испытания в составе URNC.
+        </p>
+
+        <div class="buttons">
+          <a class="button button-primary" href="#profile">
+            ОТКРЫТЬ ДОСЬЕ <span aria-hidden="true">↓</span>
+          </a>
+          <a class="button button-secondary" href="#abilities">
+            СПОСОБНОСТИ <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+
+        <div class="hero-facts">
+          <div>
+            <strong>2062—2064</strong>
+            <small>РАЗРАБОТКА</small>
+          </div>
+          <div>
+            <strong>2076</strong>
+            <small>НАПРАВЛЕНИЕ НА ELMO</small>
+          </div>
+          <div>
+            <strong>DUAL SMG</strong>
+            <small>ВООРУЖЕНИЕ</small>
+          </div>
+        </div>
+      </div>
+
+      <figure class="portrait">
+        <img
+          src="vesper.png"
+          alt="Vesper — боевая кукла в чёрной броне с механическим хвостом"
+        >
+        <figcaption class="portrait-caption">
+          <span>VISUAL REFERENCE</span>
+          <span>VESPER // 8509-EX</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <div class="ribbon">
+      <div class="wrap ribbon-inner">
+        <span><b>SF</b> / SANGVIS FERRI</span>
+        <span><b>ОГАС</b> / ПРОИЗВОДНАЯ АРХИТЕКТУРА</span>
+        <span><b>S.H.I.</b> / МОДЕРНИЗАЦИЯ</span>
+        <span><b>ELMO</b> / ПОЛЕВЫЕ ИСПЫТАНИЯ</span>
+      </div>
+    </div>
+
+    <!-- ДОСЬЕ -->
+    <section class="section wrap" id="profile">
+      <div class="section-heading">
+        <span class="section-number">01 /</span>
+        <div>
+          <p class="section-kicker">Identity file</p>
+          <h2>Личное досье</h2>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+        <article class="panel">
+          <span class="panel-label">Идентификация / основные данные</span>
+          <h3>Данные модели</h3>
+
+          <dl class="data-list">
+            <div>
+              <dt>Имя</dt>
+              <dd>Vesper</dd>
+            </div>
+            <div>
+              <dt>Модель</dt>
+              <dd>SF/DSB-8509-EX</dd>
+            </div>
+            <div>
+              <dt>Класс</dt>
+              <dd>Special ops-type Ringleaders</dd>
+            </div>
+            <div>
+              <dt>Производитель</dt>
+              <dd>Sangvis Ferri, последующая доработка S.H.I.</dd>
+            </div>
+            <div>
+              <dt>Разработка</dt>
+              <dd>Начало — 2062 год; окончание — 2064 год</dd>
+            </div>
+            <div>
+              <dt>Оружие</dt>
+              <dd>Dual SMG Vesper's</dd>
+            </div>
+            <div>
+              <dt>Обшивка</dt>
+              <dd>SF Liquid Core Mk.III</dd>
+            </div>
+            <div>
+              <dt>Специализация</dt>
+              <dd>Командование малыми группами и малые спецоперации</dd>
+            </div>
+          </dl>
+        </article>
+
+        <aside class="panel role-panel">
+          <span class="panel-label">Оперативный профиль</span>
+          <h3>Командир малой группы<span>.</span></h3>
+
+          <p>
+            Vesper разрабатывалась как автономная командная единица,
+            способная действовать в условиях ограниченной связи и без
+            постоянной поддержки основной сети.
+          </p>
+
+          <p>
+            Её сильные стороны — разведка, короткие рейды,
+            проникновение и ликвидация отдельных целей.
+          </p>
+
+          <ul class="tags">
+            <li>МАЛЫЕ ГРУППЫ</li>
+            <li>РАЗВЕДКА</li>
+            <li>ПРОНИКНОВЕНИЕ</li>
+            <li>АВТОНОМНОСТЬ</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- СИСТЕМЫ -->
+    <section class="section wrap" id="systems">
+      <div class="section-heading">
+        <span class="section-number">02 /</span>
+        <div>
+          <p class="section-kicker">Architecture &amp; equipment</p>
+          <h2>Системы и конструкция</h2>
+        </div>
+      </div>
+
+      <div class="systems-grid">
+        <article class="panel">
+          <span class="panel-label">01 / Neural architecture</span>
+          <h3>Нейронная структура</h3>
+
+          <p>
+            Нейронное облако Vesper создано на основе экспериментальной
+            версии командного ядра, производного от протокола ОГАС.
+            Архитектура ядра имеет древовидную структуру: центральный
+            диспетчер обрабатывает поступающую информацию, распределяет
+            приоритеты и передаёт команды по отдельным функциональным
+            ветвям.
+          </p>
+
+          <p>
+            Изначально такая система проектировалась для работы в составе
+            небольшой автономной оперативной группы. В отличие от
+            полноценных командных модулей, рассчитанных на управление
+            крупными эшелонами, ядро Vesper оптимизировано под:
+          </p>
+
+          <ul class="bullet-list">
+            <li>управление ограниченным количеством юнитов;</li>
+            <li>координацию действий в условиях плохой связи;</li>
+            <li>быстрое принятие решений на уровне отделения;</li>
+            <li>передачу простых приказов подчинённым куклам.</li>
+          </ul>
+        </article>
+
+        <article class="panel">
+          <span class="panel-label">02 / Protective shell</span>
+          <h3>SF Liquid Core Mk.III</h3>
+
+          <p>
+            Экспериментальная защитная обшивка Sangvis Ferri.
+            Многослойный композит с вязкоупругим наполнителем
+            распределяет повреждения по корпусу, позволяя сохранять
+            подвижность даже после частичного разрушения брони.
+          </p>
+
+          <p>
+            Обшивка защищает от осколков, пуль малого и среднего
+            калибра, ударных волн, пыли, влаги, химического и
+            радиационного воздействия. Гибкие сочленения не ограничивают
+            скорость движений, а внутренние каналы отводят тепло от
+            сервоприводов и нейронного ядра. Повреждённые участки могут
+            временно стабилизироваться при помощи ремонтных материалов.
+          </p>
+
+          <p>
+            Ключевой элемент системы — хвостовой стабилизатор,
+            соединённый с тазовым силовым узлом. Он используется для
+            поддержания равновесия, стабилизации при стрельбе, смягчения
+            приземления, фиксации на неровных поверхностях и
+            дополнительного сканирования окружающей среды. При
+            необходимости хвост может служить третьей точкой опоры.
+          </p>
+        </article>
+
+        <article class="panel systems-wide">
+          <span class="panel-label">03 / Technical profile</span>
+          <h3>Технические особенности</h3>
+
+          <p>
+            Vesper относится к серии экспериментальных кукол Sangvis
+            Ferri, созданных в последние годы существования компании.
+            Она разрабатывалась как элитная боевая единица уровня
+            ринглидера, однако не предназначалась для полномасштабного
+            управления армиями.
+          </p>
+
+          <p>
+            В конструкции был сделан упор на сочетание командных функций
+            с высокой личной боевой эффективностью. Vesper должна была
+            стать автономным командиром малой оперативной группы,
+            способным действовать в глубине вражеской территории без
+            постоянной поддержки.
+          </p>
+
+          <ul class="bullet-list feature-list">
+            <li>высокая скорость перемещения;</li>
+            <li>усиленные сервоприводы ног и таза;</li>
+            <li>возможность выполнять длинные прыжки;</li>
+            <li>повышенная устойчивость при стрельбе в движении;</li>
+            <li>встроенный медицинско-ремонтный пакет;</li>
+            <li>расширенная система обнаружения биологических объектов;</li>
+            <li>поддержка двух единиц основного оружия;</li>
+            <li>локальная сеть управления малыми группами;</li>
+            <li>высокая эффективность в условиях ограниченной связи;</li>
+            <li>способность действовать без постоянного доступа к мейнфрейму.</li>
+          </ul>
+
+          <div class="limit-note">
+            <p>
+              Несмотря на командный статус, Vesper не имеет ресурсов
+              полноценного ринглидера Sangvis Ferri. Она не может
+              одновременно управлять крупным количеством подчинённых
+              юнитов, поддерживать сложную логистику и вести масштабные
+              операции. Её сильная сторона — небольшие группы, короткие
+              рейды, разведка, проникновение и ликвидация отдельных целей.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- СПОСОБНОСТИ -->
+    <section class="section wrap" id="abilities">
+      <div class="section-heading">
+        <span class="section-number">03 /</span>
+        <div>
+          <p class="section-kicker">Combat &amp; support modules</p>
+          <h2>Способности</h2>
+        </div>
+      </div>
+
+      <div class="ability-grid">
+        <article class="ability">
+          <div class="ability-top">
+            <span>АКТИВНАЯ СПОСОБНОСТЬ</span>
+            <span>01</span>
+          </div>
+
+          <h3>Полевой ремонт</h3>
+
+          <p>
+            Кукла останавливается на месте и в течение 6 секунд с помощью
+            подручных материалов и инструментов восстанавливает
+            повреждённые части корпуса. Восстанавливает 35% от
+            максимального HP. Не заменяет полноценный ремонт
+            в лаборатории.
+          </p>
+
+          <ul class="tags">
+            <li>6 СЕКУНД</li>
+            <li>35% МАКС. HP</li>
+            <li>НЕПОДВИЖНОСТЬ</li>
+          </ul>
+        </article>
+
+        <article class="ability">
+          <div class="ability-top">
+            <span>АКТИВНАЯ СПОСОБНОСТЬ</span>
+            <span>02</span>
+          </div>
+
+          <h3>Усиленный прыжок</h3>
+
+          <p>
+            Кратковременно переносит часть энергонагрузки на
+            сервоприводы ног и с помощью хвоста позволяет совершить
+            прыжок на большое расстояние.
+          </p>
+
+          <ul class="tags">
+            <li>СЕРВОПРИВОДЫ НОГ</li>
+            <li>ХВОСТ-СТАБИЛИЗАТОР</li>
+          </ul>
+        </article>
+
+        <article class="ability">
+          <div class="ability-top">
+            <span>ПАССИВНАЯ СПОСОБНОСТЬ</span>
+            <span>03</span>
+          </div>
+
+          <h3>Обнаружение жизни</h3>
+
+          <p>
+            Постоянно сканирует окружающую обстановку в радиусе
+            30 метров, фиксируя живые объекты и передавая данные
+            об их местоположении на визор куклы в реальном времени.
+            Не способна фиксировать технику или механизмы, в которых
+            нет никаких биологических признаков жизни.
+          </p>
+
+          <ul class="tags">
+            <li>РАДИУС 30 М</li>
+            <li>ЖИВЫЕ ОБЪЕКТЫ</li>
+            <li>ПОСТОЯННО</li>
+          </ul>
+        </article>
+
+        <article class="ability ability-ultimate">
+          <div class="ability-top">
+            <span>УЛЬТИМАТИВНАЯ СПОСОБНОСТЬ</span>
+            <span>04</span>
+          </div>
+
+          <h3>Защитный экран</h3>
+
+          <p>
+            С помощью внешнего модуля создаёт энергетический щит,
+            покрывающий всё тело и защищающий от любого воздействия,
+            за исключением радиационного и ЭМИ. Щит имеет 300 очков
+            здоровья. После активации он действует до момента, пока
+            не будет уничтожен.
+          </p>
+
+          <div class="shield-display">
+            <div class="shield-row">
+              <span>ПРОЧНОСТЬ ЩИТА</span>
+              <strong>300 / 300 HP</strong>
+            </div>
+            <div class="shield-bar" aria-hidden="true">
+              <span></span>
+            </div>
+          </div>
+
+          <ul class="tags">
+            <li>ВНЕШНИЙ МОДУЛЬ</li>
+            <li>ДО УНИЧТОЖЕНИЯ</li>
+            <li>ИСКЛЮЧЕНИЯ: РАДИАЦИЯ / ЭМИ</li>
+          </ul>
+
+          <p class="shield-note">
+            Исключения относятся к энергетическому щиту. Защита
+            обшивки от радиации описана отдельно в разделе конструкции.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ИСТОРИЯ -->
+    <section class="section wrap" id="history">
+      <div class="section-heading">
+        <span class="section-number">04 /</span>
+        <div>
+          <p class="section-kicker">Archive &amp; service record</p>
+          <h2>История</h2>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <article class="event">
+          <div>
+            <span class="event-date">2062—2064 / SANGVIS FERRI</span>
+            <h3>Начало проекта</h3>
+          </div>
+
+          <div class="event-body">
+            <p>
+              Vesper была создана Sangvis Ferri в 2062 году как
+              экспериментальная боевая кукла класса Special Ops-type
+              Ringleader. Проект задумывался как промежуточное звено
+              между обычными боевыми единицами и полноценными
+              ринглидерами: она должна была руководить малыми группами,
+              проводить разведывательные рейды, устранять отдельные
+              цели и действовать там, где связь с основной сетью была
+              нестабильной.
+            </p>
+
+            <p>
+              В основу куклы заложили экспериментальное нейронное ядро
+              с элементами командной архитектуры, производной от ОГАС.
+              Оно позволяло анализировать тактическую обстановку,
+              распределять простые задачи между подчинёнными юнитами
+              и самостоятельно выбирать способ выполнения поставленной
+              цели. При этом Vesper сознательно не наделили полным
+              набором возможностей стандартного ринглидера: модель
+              создавалась как менее затратная и потенциально
+              воспроизводимая командная единица.
+            </p>
+
+            <p>
+              К началу 2064 года корпус, вооружение и основные боевые
+              системы Vesper были готовы. В ходе предварительных
+              испытаний она показала высокую эффективность при
+              ограниченной связи, хорошую скорость анализа и устойчивость
+              к повреждениям.
+            </p>
+
+            <p>
+              Однако перед вводом в эксплуатацию требовалось завершить
+              настройку протоколов подчинения, таблиц приоритетов и прав
+              доступа к командному модулю.
+            </p>
+          </div>
+        </article>
+
+        <article class="event">
+          <div>
+            <span class="event-date">ПОСЛЕ ЛИКВИДАЦИИ ЭЛИЗЫ</span>
+            <h3>Остановка проекта</h3>
+          </div>
+
+          <div class="event-body">
+            <p>
+              Завершить работу не успели. После ликвидации Элизы
+              производственные процессы Sangvis Ferri начали разрушаться,
+              а обновление нейронного облака Vesper оборвалось на этапе
+              пересборки данных. Куклу оставили на закрытом
+              производственном объекте в неактивном состоянии. Системы
+              завода постепенно перешли в режим минимального
+              энергопотребления, а связь с инфраструктурой SF
+              окончательно исчезла.
+            </p>
+          </div>
+        </article>
+
+        <article class="event">
+          <div>
+            <span class="event-date">КОНЕЦ 2075 / S.H.I.</span>
+            <h3>Обнаружение и доработка</h3>
+          </div>
+
+          <div class="event-body">
+            <p>
+              В конце 2075 года объект обнаружила техническая группа
+              Svarog Heavy Industries. Экспедиция проводила
+              инвентаризацию уцелевших промышленных площадок и
+              оборудования, когда в одном из изолированных цехов нашла
+              Vesper на законсервированной сборочной линии. При
+              изолированной диагностике инженеры Svarog проверили
+              состояние нейронного ядра, отключили остаточные внешние
+              каналы SF и восстановили базовые системы питания и
+              управления.
+            </p>
+
+            <p>
+              Диагностика подтвердила, что исходное ядро Vesper
+              сохранило большую часть личности, боевых навыков и
+              заложенных Sangvis Ferri функций, но финальная конфигурация
+              модели так и не была завершена. Вместо списания редкой
+              машины Svarog приняла решение использовать её как основу
+              для программы доработки.
+            </p>
+
+            <p>
+              В ходе модернизации ей установили новые средства
+              диагностики, защищённые интерфейсы связи и обновлённые
+              элементы энергоснабжения. Система обмена данными была
+              адаптирована для совместимости с современными сетями,
+              а доступ к устаревшим узлам SF ограничен изолированными
+              контурами безопасности.
+            </p>
+
+            <p>
+              Изменения не заменили её нейронное ядро и не стёрли
+              накопленные данные: цель Svarog состояла в том, чтобы
+              сделать уникальную SF-платформу безопасной, устойчивой
+              и пригодной к службе в современных условиях.
+            </p>
+          </div>
+        </article>
+
+        <article class="event">
+          <div>
+            <span class="event-date">S.H.I. × URNC</span>
+            <h3>Полевые испытания</h3>
+          </div>
+
+          <div class="event-body">
+            <p>
+              Для проверки результатов Svarog Heavy Industries заключила
+              с URNC контракт на использование Vesper в качестве опытной
+              единицы для полевых испытаний. В рамках этого соглашения
+              кукла получила возможность действовать в рядах URNC под
+              техническим сопровождением Svarog.
+            </p>
+
+            <p>
+              Испытания должны были показать, насколько надёжно
+              доработанная SF-архитектура работает в настоящих
+              операциях, при перемене условий связи, контакте с разными
+              подразделениями и длительной автономной работе.
+            </p>
+
+            <p>
+              Полевые данные подтвердили, что кукла сохраняет сильные
+              стороны своей исходной конструкции: быстро оценивает
+              обстановку, эффективно работает в небольших группах и
+              способна действовать без постоянного внешнего управления.
+              Одновременно доработки Svarog позволили ей безопасно
+              взаимодействовать с современной техникой и системами
+              союзных сил.
+            </p>
+
+            <p>
+              Для самой Vesper эта программа стала первой полноценной
+              службой: вместо незавершённого заводского предназначения
+              она получила конкретную роль и возможность самостоятельно
+              определить, какой будет её дальнейшая жизнь.
+            </p>
+          </div>
+        </article>
+
+        <article class="event">
+          <div>
+            <span class="event-date">2076 / МОБИЛЬНАЯ БАЗА</span>
+            <h3>ELMO</h3>
+          </div>
+
+          <div class="event-body">
+            <p>
+              В 2076 году, на следующем этапе контракта между Svarog
+              и URNC, Vesper направили на мобильную базу ELMO. База
+              стала подходящей площадкой для продолжения полевых
+              испытаний: её маршруты проходят через разные зоны и
+              позволяют оценивать работу куклы в разведке, сопровождении,
+              обороне и совместных операциях.
+            </p>
+
+            <p>
+              С этого момента Vesper остаётся редкой связью между двумя
+              эпохами: она по-прежнему является куклой Sangvis Ferri,
+              однако её корпус, системы обеспечения и условия службы
+              сформированы программой Svarog. На ELMO её задача состоит
+              в том, чтобы доказать ценность собственной доработанной
+              платформы в реальных операциях и найти своё место среди
+              нового подразделения.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <span><strong>VESPER</strong> / SF/DSB-8509-EX</span>
+      <span>SANGVIS FERRI × S.H.I.</span>
+      <a class="back-top" href="#top">НАВЕРХ ↑</a>
+    </div>
+  </footer>
+</body>
+</html>
