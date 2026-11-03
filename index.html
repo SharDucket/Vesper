@@ -3,21 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#09090b">
+  <meta name="theme-color" content="#090b16">
   <meta name="description" content="Квента Vesper — экспериментальной боевой куклы Sangvis Ferri, доработанной Svarog Heavy Industries.">
   <title>VESPER — оперативное досье</title>
+
+  <!--
+    Изображения: положите PNG-файлы в ту же папку, что и этот HTML.
+    Skill1.png       — Полевой ремонт;
+    Skill2.png       — Усиленный прыжок;
+    PassivSkill.png  — Обнаружение жизни;
+    UltimateSkill.png — Защитный экран.
+    Регистр букв важен. Портрет остаётся в файле vesper.png.
+    Если изображения лежат в папке images, используйте src="images/Skill1.png" и т. д.
+  -->
 
   <style>
     :root {
       color-scheme: dark;
-      --bg: #09090b;
-      --panel: #141215;
-      --panel-dark: #100e10;
-      --line: #38282c;
-      --text: #f4f0ef;
-      --muted: #b5aaab;
-      --red: #f04a56;
-      --red-dark: #7d1d29;
+      --bg: #090b16;
+      --panel: #15172c;
+      --panel-dark: #101322;
+      --line: #303655;
+      --text: #f1f2ff;
+      --muted: #adb2cd;
+      --violet: #ac8cff;
+      --blue: #6ea8ff;
+      --blue-dark: #365c9f;
     }
 
     * {
@@ -33,16 +44,16 @@
       margin: 0;
       color: var(--text);
       background:
-        radial-gradient(ellipse at 80% 4%, rgba(130, 22, 37, .22), transparent 34%),
-        radial-gradient(ellipse at 0% 48%, rgba(88, 13, 26, .11), transparent 28%),
+        radial-gradient(ellipse at 80% 4%, rgba(98, 65, 205, .23), transparent 34%),
+        radial-gradient(ellipse at 0% 48%, rgba(40, 96, 204, .15), transparent 28%),
         var(--bg);
       font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
       line-height: 1.65;
     }
 
     ::selection {
-      background: var(--red);
-      color: #130608;
+      background: var(--violet);
+      color: #100d23;
     }
 
     a {
@@ -51,7 +62,7 @@
     }
 
     a:focus-visible {
-      outline: 2px solid var(--red);
+      outline: 2px solid var(--violet);
       outline-offset: 4px;
     }
 
@@ -75,8 +86,8 @@
       left: 10px;
       z-index: 100;
       padding: 10px 14px;
-      background: var(--red);
-      color: #100507;
+      background: var(--violet);
+      color: #100d23;
       transform: translateY(-150%);
     }
 
@@ -90,8 +101,8 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      border-bottom: 1px solid rgba(240, 74, 86, .18);
-      background: rgba(9, 9, 11, .93);
+      border-bottom: 1px solid rgba(172, 140, 255, .20);
+      background: rgba(9, 11, 22, .94);
       backdrop-filter: blur(14px);
     }
 
@@ -117,8 +128,8 @@
       place-items: center;
       width: 34px;
       height: 34px;
-      border: 1px solid var(--red);
-      color: var(--red);
+      border: 1px solid var(--violet);
+      color: var(--violet);
       font-size: .68rem;
     }
 
@@ -127,7 +138,7 @@
       align-items: center;
       gap: 26px;
       margin-left: auto;
-      color: #c2b7b8;
+      color: #b9bfd9;
       font-size: .8rem;
       font-weight: 700;
     }
@@ -138,12 +149,12 @@
     }
 
     .nav a:hover {
-      color: var(--red);
+      color: var(--violet);
     }
 
     .top-code {
       flex-shrink: 0;
-      color: #9f8f92;
+      color: #969fbe;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .7rem;
       letter-spacing: .08em;
@@ -165,7 +176,7 @@
       align-items: center;
       gap: 10px;
       margin: 0 0 20px;
-      color: var(--red);
+      color: var(--violet);
       font-family: ui-monospace, Consolas, monospace;
       font-size: .74rem;
       font-weight: 700;
@@ -177,7 +188,7 @@
       content: "";
       width: 28px;
       height: 2px;
-      background: var(--red);
+      background: var(--violet);
     }
 
     .hero h1 {
@@ -188,12 +199,12 @@
     }
 
     .hero h1 span {
-      color: var(--red);
+      color: var(--violet);
     }
 
     .hero-model {
       margin: 22px 0 0;
-      color: #e1d7d8;
+      color: #d8def6;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .83rem;
       font-weight: 700;
@@ -203,7 +214,7 @@
     .hero-description {
       max-width: 540px;
       margin: 27px 0 0;
-      color: #c2b9b9;
+      color: #bcc3da;
       font-size: clamp(1rem, 1.5vw, 1.12rem);
       line-height: 1.8;
     }
@@ -222,7 +233,7 @@
       gap: 18px;
       min-height: 48px;
       padding: 12px 20px;
-      border: 1px solid var(--red);
+      border: 1px solid var(--violet);
       font-size: .8rem;
       font-weight: 800;
       letter-spacing: .04em;
@@ -234,22 +245,22 @@
     }
 
     .button-primary {
-      background: var(--red);
-      color: #140608;
+      background: var(--violet);
+      color: #100d23;
     }
 
     .button-primary:hover {
-      background: #ff6972;
+      background: #c2aaff;
     }
 
     .button-secondary {
-      border-color: #5c4549;
+      border-color: #454d76;
       color: var(--text);
     }
 
     .button-secondary:hover {
-      border-color: var(--red);
-      color: var(--red);
+      border-color: var(--violet);
+      color: var(--violet);
     }
 
     .hero-facts {
@@ -275,7 +286,7 @@
 
     .hero-facts small {
       margin-top: 5px;
-      color: #a29597;
+      color: #9ca6c4;
       font-size: .66rem;
       font-weight: 700;
       letter-spacing: .06em;
@@ -287,8 +298,8 @@
       width: min(100%, 430px);
       margin: 0;
       overflow: hidden;
-      border: 1px solid #6b3039;
-      background: #171216;
+      border: 1px solid #57518f;
+      background: #14172b;
     }
 
     .portrait img {
@@ -306,8 +317,8 @@
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(180deg, transparent 52%, rgba(9, 7, 9, .92) 100%),
-        linear-gradient(90deg, rgba(137, 19, 37, .22), transparent 55%);
+        linear-gradient(180deg, transparent 52%, rgba(8, 11, 25, .94) 100%),
+        linear-gradient(90deg, rgba(93, 63, 191, .25), transparent 55%);
     }
 
     .portrait-caption {
@@ -319,23 +330,23 @@
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      color: #e7dfe0;
+      color: #e0e5fb;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .67rem;
       letter-spacing: .08em;
     }
 
     .portrait-caption span:last-child {
-      color: #ff7c85;
+      color: #8bb9ff;
       text-align: right;
     }
 
     .ribbon {
       overflow: hidden;
-      border-top: 1px solid #4a242a;
-      border-bottom: 1px solid #4a242a;
-      background: #1c0d11;
-      color: #d0babc;
+      border-top: 1px solid #34395e;
+      border-bottom: 1px solid #34395e;
+      background: #12162b;
+      color: #c1c9e7;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .72rem;
       letter-spacing: .12em;
@@ -351,7 +362,7 @@
     }
 
     .ribbon b {
-      color: var(--red);
+      color: var(--violet);
     }
 
     /* Общие блоки */
@@ -371,7 +382,7 @@
     }
 
     .section-number {
-      color: var(--red);
+      color: var(--violet);
       font-family: ui-monospace, Consolas, monospace;
       font-size: .8rem;
       font-weight: 700;
@@ -380,7 +391,7 @@
 
     .section-kicker {
       margin: 0 0 8px;
-      color: #aa9699;
+      color: #a0a9c9;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .7rem;
       font-weight: 700;
@@ -397,7 +408,7 @@
     .panel {
       padding: clamp(22px, 3vw, 34px);
       border: 1px solid var(--line);
-      background: linear-gradient(145deg, rgba(24, 20, 23, .98), rgba(15, 13, 15, .98));
+      background: linear-gradient(145deg, rgba(23, 25, 47, .98), rgba(14, 18, 35, .98));
     }
 
     .panel h3 {
@@ -409,7 +420,7 @@
     .panel p,
     .event p,
     .ability p {
-      color: #c9c0c0;
+      color: #c4c9df;
     }
 
     .panel p:last-child,
@@ -421,7 +432,7 @@
     .panel-label {
       display: block;
       margin-bottom: 14px;
-      color: var(--red);
+      color: var(--violet);
       font-family: ui-monospace, Consolas, monospace;
       font-size: .69rem;
       font-weight: 700;
@@ -454,13 +465,13 @@
     }
 
     .data-list dt {
-      color: #ac9fa1;
+      color: #a6afcb;
       font-size: .88rem;
     }
 
     .data-list dd {
       margin: 0;
-      color: #f0e9e9;
+      color: #eceeff;
       font-size: .9rem;
       font-weight: 700;
       overflow-wrap: anywhere;
@@ -470,8 +481,8 @@
       position: relative;
       overflow: hidden;
       background:
-        radial-gradient(circle at 100% 0%, rgba(171, 34, 48, .20), transparent 52%),
-        linear-gradient(145deg, #1c1215, #110e10);
+        radial-gradient(circle at 100% 0%, rgba(117, 83, 230, .22), transparent 52%),
+        linear-gradient(145deg, #1b1936, #101426);
     }
 
     .role-panel h3 {
@@ -481,7 +492,7 @@
     }
 
     .role-panel h3 span {
-      color: var(--red);
+      color: var(--violet);
     }
 
     .role-panel p {
@@ -499,9 +510,9 @@
 
     .tags li {
       padding: 6px 9px;
-      border: 1px solid #573138;
-      background: rgba(122, 29, 41, .12);
-      color: #e5c8ca;
+      border: 1px solid #444569;
+      background: rgba(104, 80, 198, .15);
+      color: #d4ceff;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .67rem;
       font-weight: 700;
@@ -529,7 +540,7 @@
     .bullet-list li {
       position: relative;
       padding: 7px 0 7px 18px;
-      color: #d1c8c8;
+      color: #cbd0e6;
     }
 
     .bullet-list li::before {
@@ -539,7 +550,7 @@
       left: 0;
       width: 6px;
       height: 6px;
-      background: var(--red);
+      background: var(--violet);
     }
 
     .feature-list {
@@ -551,8 +562,8 @@
     .limit-note {
       margin-top: 24px;
       padding: 16px 18px;
-      border-left: 3px solid var(--red);
-      background: rgba(136, 32, 44, .12);
+      border-left: 3px solid var(--violet);
+      background: rgba(72, 106, 209, .13);
     }
 
     .limit-note p {
@@ -580,7 +591,7 @@
       justify-content: space-between;
       gap: 15px;
       margin-bottom: 25px;
-      color: #b7a8aa;
+      color: #acb5d4;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .7rem;
       font-weight: 700;
@@ -588,7 +599,73 @@
     }
 
     .ability-top span:last-child {
-      color: var(--red);
+      color: var(--violet);
+    }
+
+
+    /* Изображения способностей: src указывает на PNG рядом с HTML-файлом. */
+
+    .ability-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .ability-header h3 {
+      min-width: 0;
+      margin-bottom: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .ability-icon {
+      --icon-bg: #171d36;
+      position: relative;
+      display: grid;
+      place-items: center;
+      flex: 0 0 96px;
+      width: 96px;
+      height: 96px;
+      overflow: hidden;
+      border: 1px solid #4a507e;
+      background: var(--icon-bg);
+    }
+
+    .ability-icon img {
+      position: absolute;
+      inset: 10px;
+      width: calc(100% - 20px);
+      height: calc(100% - 20px);
+      object-fit: contain;
+      background: var(--icon-bg);
+    }
+
+    .ability-icon img[hidden] {
+      display: none;
+    }
+
+    /* Заглушка видна, пока PNG не добавлен в репозиторий. */
+    .ability-placeholder {
+      display: grid;
+      gap: 6px;
+      text-align: center;
+      color: #c3b5ff;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: .08em;
+    }
+
+    .ability-placeholder small {
+      color: #9baed5;
+      font-size: .55rem;
+      letter-spacing: .14em;
+    }
+
+    .ability-ultimate .ability-icon {
+      --icon-bg: #242444;
+      border-color: #8d79dc;
     }
 
     .ability h3 {
@@ -598,20 +675,20 @@
     }
 
     .ability-ultimate {
-      border-color: #a73543;
+      border-color: #8570d6;
       background:
-        radial-gradient(circle at 100% 0%, rgba(190, 40, 56, .2), transparent 55%),
-        linear-gradient(145deg, #211116, #120d0f);
+        radial-gradient(circle at 100% 0%, rgba(133, 95, 246, .24), transparent 55%),
+        linear-gradient(145deg, #211c41, #10172c);
     }
 
     .ability-ultimate h3 {
-      color: #fff4f3;
+      color: #f6f2ff;
     }
 
     .shield-display {
       margin-top: 25px;
       padding: 16px;
-      border: 1px solid rgba(240, 74, 86, .35);
+      border: 1px solid rgba(143, 151, 255, .35);
       background: rgba(0, 0, 0, .24);
     }
 
@@ -619,33 +696,33 @@
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      color: #e5c9cb;
+      color: #d1d8f8;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .72rem;
       font-weight: 700;
     }
 
     .shield-row strong {
-      color: #ff7a83;
+      color: #94beff;
       white-space: nowrap;
     }
 
     .shield-bar {
       height: 8px;
       margin-top: 12px;
-      background: #4e1c23;
+      background: #293454;
     }
 
     .shield-bar span {
       display: block;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, #aa2536, #ff6670);
+      background: linear-gradient(90deg, #7854e8, #66b3ff);
     }
 
     .shield-note {
       margin-top: 15px !important;
-      color: #bba5a8 !important;
+      color: #b0b9d7 !important;
       font-size: .8rem;
       line-height: 1.6;
     }
@@ -663,14 +740,14 @@
       gap: 32px;
       padding: clamp(22px, 3vw, 32px);
       border: 1px solid var(--line);
-      border-left: 3px solid #9c2e3c;
-      background: rgba(20, 18, 21, .86);
+      border-left: 3px solid #7563c8;
+      background: rgba(18, 22, 41, .88);
     }
 
     .event-date {
       display: block;
       margin-bottom: 11px;
-      color: var(--red);
+      color: var(--violet);
       font-family: ui-monospace, Consolas, monospace;
       font-size: .72rem;
       font-weight: 700;
@@ -690,7 +767,7 @@
 
     footer {
       padding: 36px 0 42px;
-      color: #9c8d90;
+      color: #9ca6c4;
       font-family: ui-monospace, Consolas, monospace;
       font-size: .7rem;
       letter-spacing: .06em;
@@ -704,11 +781,11 @@
     }
 
     .footer-inner strong {
-      color: #e6d8da;
+      color: #dfe4ff;
     }
 
     .back-top {
-      color: #f17a84;
+      color: #ad9aff;
     }
 
     /* Мобильная версия */
@@ -787,6 +864,22 @@
       }
     }
 
+    @media (max-width: 380px) {
+      .ability-header {
+        gap: 14px;
+      }
+
+      .ability-icon {
+        flex-basis: 76px;
+        width: 76px;
+        height: 76px;
+      }
+
+      .ability-header h3 {
+        font-size: 1.2rem;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html {
         scroll-behavior: auto;
@@ -829,7 +922,7 @@
         <h1 id="hero-title">VESPER<span>.</span></h1>
 
         <p class="hero-model">
-          SF/DSB-8509-EX // SPECIAL OPS-TYPE RINGLEADER
+          SF/DSB-8509-EX // SPECIAL OPS-TYPE OPERATOR
         </p>
 
         <p class="hero-description">
@@ -865,7 +958,7 @@
 
       <figure class="portrait">
         <img
-          src="Vesper.png"
+          src="vesper.png"
           alt="Vesper — боевая кукла в чёрной броне с механическим хвостом"
         >
         <figcaption class="portrait-caption">
@@ -910,7 +1003,7 @@
             </div>
             <div>
               <dt>Класс</dt>
-              <dd>Special ops-type Ringleaders</dd>
+              <dd>Special ops-type Operator</dd>
             </div>
             <div>
               <dt>Производитель</dt>
@@ -1093,7 +1186,21 @@
             <span>01</span>
           </div>
 
-          <h3>Полевой ремонт</h3>
+          <div class="ability-header">
+            <div class="ability-icon">
+              <span class="ability-placeholder" aria-hidden="true">01<small>PNG</small></span>
+              <img
+                src="Skill1.png"
+                alt="Иконка способности «Полевой ремонт»"
+                width="96"
+                height="96"
+                loading="lazy"
+                decoding="async"
+                onerror="this.hidden = true"
+              >
+            </div>
+            <h3>Полевой ремонт</h3>
+          </div>
 
           <p>
             Кукла останавливается на месте и в течение 6 секунд с помощью
@@ -1116,7 +1223,21 @@
             <span>02</span>
           </div>
 
-          <h3>Усиленный прыжок</h3>
+          <div class="ability-header">
+            <div class="ability-icon">
+              <span class="ability-placeholder" aria-hidden="true">02<small>PNG</small></span>
+              <img
+                src="Skill2.png"
+                alt="Иконка способности «Усиленный прыжок»"
+                width="96"
+                height="96"
+                loading="lazy"
+                decoding="async"
+                onerror="this.hidden = true"
+              >
+            </div>
+            <h3>Усиленный прыжок</h3>
+          </div>
 
           <p>
             Кратковременно переносит часть энергонагрузки на
@@ -1136,7 +1257,21 @@
             <span>03</span>
           </div>
 
-          <h3>Обнаружение жизни</h3>
+          <div class="ability-header">
+            <div class="ability-icon">
+              <span class="ability-placeholder" aria-hidden="true">PAS<small>PNG</small></span>
+              <img
+                src="PassivSkill.png"
+                alt="Иконка способности «Обнаружение жизни»"
+                width="96"
+                height="96"
+                loading="lazy"
+                decoding="async"
+                onerror="this.hidden = true"
+              >
+            </div>
+            <h3>Обнаружение жизни</h3>
+          </div>
 
           <p>
             Постоянно сканирует окружающую обстановку в радиусе
@@ -1159,7 +1294,21 @@
             <span>04</span>
           </div>
 
-          <h3>Защитный экран</h3>
+          <div class="ability-header">
+            <div class="ability-icon">
+              <span class="ability-placeholder" aria-hidden="true">ULT<small>PNG</small></span>
+              <img
+                src="UltimateSkill.png"
+                alt="Иконка способности «Защитный экран»"
+                width="96"
+                height="96"
+                loading="lazy"
+                decoding="async"
+                onerror="this.hidden = true"
+              >
+            </div>
+            <h3>Защитный экран</h3>
+          </div>
 
           <p>
             С помощью внешнего модуля создаёт энергетический щит,
@@ -1214,7 +1363,7 @@
             <p>
               Vesper была создана Sangvis Ferri в 2062 году как
               экспериментальная боевая кукла класса Special Ops-type
-              Ringleader. Проект задумывался как промежуточное звено
+              Operator. Проект задумывался как промежуточное звено
               между обычными боевыми единицами и полноценными
               ринглидерами: она должна была руководить малыми группами,
               проводить разведывательные рейды, устранять отдельные
