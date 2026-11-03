@@ -15,6 +15,13 @@
     UltimateSkill.png — Защитный экран.
     Регистр букв важен. Портрет остаётся в файле vesper.png.
     Если изображения лежат в папке images, используйте src="images/Skill1.png" и т. д.
+
+    Видео: положите MP4-файлы в ту же папку, что и этот HTML.
+    vesper.mp4        — Оперативный ролик, обложка vesper.png;
+    Skill1.mp4        — Полевой ремонт, обложка Skill1.png;
+    Skill2.mp4        — Усиленный прыжок, обложка Skill2.png;
+    PassivSkill.mp4   — Обнаружение жизни, обложка PassivSkill.png;
+    UltimateSkill.mp4 — Защитный экран, обложка UltimateSkill.png.
   -->
 
   <style>
@@ -399,10 +406,15 @@
       text-transform: uppercase;
     }
 
+    .section-heading > div {
+      min-width: 0;
+    }
+
     .section-heading h2 {
       font-size: clamp(1.8rem, 3.6vw, 3rem);
       font-weight: 850;
       letter-spacing: -.04em;
+      overflow-wrap: anywhere;
     }
 
     .panel {
@@ -727,6 +739,126 @@
       line-height: 1.6;
     }
 
+    /* Видеоматериалы */
+
+    .video-group + .video-group {
+      margin-top: 56px;
+    }
+
+    .video-group-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .video-group-heading h3 {
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      letter-spacing: -.03em;
+    }
+
+    .video-group-index {
+      color: var(--blue);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .video-card {
+      min-width: 0;
+      padding: clamp(18px, 2.5vw, 26px);
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(23, 25, 47, .98), rgba(14, 18, 35, .98));
+    }
+
+    .video-card-featured {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(240px, .65fr);
+      gap: clamp(20px, 3vw, 34px);
+      align-items: center;
+    }
+
+    .video-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: #acb5d4;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .video-card-top span:last-child {
+      color: var(--violet);
+    }
+
+    .video-card h4 {
+      margin: 0 0 14px;
+      font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+
+    .video-frame {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #4a507e;
+      background: #080b18;
+      aspect-ratio: 16 / 9;
+    }
+
+    .video-frame video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #080b18;
+    }
+
+    .video-files {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .video-files li {
+      padding: 5px 8px;
+      border: 1px solid #444569;
+      background: rgba(104, 80, 198, .12);
+      color: #d4ceff;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .video-note {
+      margin: 0;
+      color: #b0b9d7;
+      font-size: .85rem;
+      line-height: 1.6;
+    }
+
+    .video-card-info .panel-label {
+      margin-bottom: 12px;
+    }
+
+    .video-card-info .video-files {
+      margin-top: 18px;
+    }
+
     /* История */
 
     .timeline {
@@ -790,9 +922,19 @@
 
     /* Мобильная версия */
 
+    @media (max-width: 900px) {
+      .top-code {
+        display: none;
+      }
+    }
+
     @media (max-width: 850px) {
       .top-code {
         display: none;
+      }
+
+      .video-card-featured {
+        grid-template-columns: 1fr;
       }
 
       .hero {
@@ -850,8 +992,13 @@
 
       .systems-grid,
       .ability-grid,
-      .feature-list {
+      .feature-list,
+      .video-grid {
         grid-template-columns: 1fr;
+      }
+
+      .video-group + .video-group {
+        margin-top: 42px;
       }
 
       .systems-wide {
@@ -907,6 +1054,7 @@
         <a href="#profile">Досье</a>
         <a href="#systems">Системы</a>
         <a href="#abilities">Способности</a>
+        <a href="#videos">Видеоматериалы</a>
         <a href="#history">История</a>
       </nav>
 
@@ -1342,10 +1490,188 @@
       </div>
     </section>
 
+    <!-- ВИДЕОМАТЕРИАЛЫ -->
+    <section class="section wrap" id="videos" aria-labelledby="videos-title">
+      <div class="section-heading">
+        <span class="section-number">04 /</span>
+        <div>
+          <p class="section-kicker">Video archive</p>
+          <h2 id="videos-title">Видео<wbr>материалы</h2>
+        </div>
+      </div>
+
+      <div class="video-group" aria-labelledby="video-operative-title">
+        <div class="video-group-heading">
+          <span class="video-group-index">01 /</span>
+          <h3 id="video-operative-title">Оперативный ролик</h3>
+        </div>
+
+        <article class="video-card video-card-featured">
+          <div class="video-frame">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="vesper.png"
+              aria-label="Оперативный ролик Vesper"
+            >
+              <source src="vesper.mp4" type="video/mp4">
+              <p>
+                Ваш браузер не поддерживает встроенное видео.
+                <a href="vesper.mp4">Открыть MP4-файл</a>.
+              </p>
+            </video>
+          </div>
+
+          <div class="video-card-info">
+            <span class="panel-label">Operational record</span>
+            <h4>VESPER // 8509-EX</h4>
+            <p class="video-note">
+              Основной видеоматериал досье. Обложка и ролик загружаются
+              из файлов, расположенных рядом с этой страницей.
+            </p>
+            <ul class="video-files" aria-label="Файлы оперативного ролика">
+              <li>vesper.png</li>
+              <li>vesper.mp4</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+
+      <div class="video-group" aria-labelledby="video-skills-title">
+        <div class="video-group-heading">
+          <span class="video-group-index">02 /</span>
+          <h3 id="video-skills-title">Демонстрация навыков</h3>
+        </div>
+
+        <div class="video-grid">
+        <article class="video-card">
+          <div class="video-card-top">
+            <span>ДЕМОНСТРАЦИЯ НАВЫКА</span>
+            <span>01</span>
+          </div>
+
+          <h4>Полевой ремонт</h4>
+
+          <div class="video-frame">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="Skill1.png"
+              aria-label="Демонстрация навыка «Полевой ремонт»"
+            >
+              <source src="Skill1.mp4" type="video/mp4">
+              <p>
+                Ваш браузер не поддерживает встроенное видео.
+                <a href="Skill1.mp4">Открыть MP4-файл</a>.
+              </p>
+            </video>
+          </div>
+
+          <ul class="video-files" aria-label="Файлы демонстрации">
+            <li>Skill1.png</li>
+            <li>Skill1.mp4</li>
+          </ul>
+        </article>
+
+        <article class="video-card">
+          <div class="video-card-top">
+            <span>ДЕМОНСТРАЦИЯ НАВЫКА</span>
+            <span>02</span>
+          </div>
+
+          <h4>Усиленный прыжок</h4>
+
+          <div class="video-frame">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="Skill2.png"
+              aria-label="Демонстрация навыка «Усиленный прыжок»"
+            >
+              <source src="Skill2.mp4" type="video/mp4">
+              <p>
+                Ваш браузер не поддерживает встроенное видео.
+                <a href="Skill2.mp4">Открыть MP4-файл</a>.
+              </p>
+            </video>
+          </div>
+
+          <ul class="video-files" aria-label="Файлы демонстрации">
+            <li>Skill2.png</li>
+            <li>Skill2.mp4</li>
+          </ul>
+        </article>
+
+        <article class="video-card">
+          <div class="video-card-top">
+            <span>ДЕМОНСТРАЦИЯ НАВЫКА</span>
+            <span>03</span>
+          </div>
+
+          <h4>Обнаружение жизни</h4>
+
+          <div class="video-frame">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="PassivSkill.png"
+              aria-label="Демонстрация навыка «Обнаружение жизни»"
+            >
+              <source src="PassivSkill.mp4" type="video/mp4">
+              <p>
+                Ваш браузер не поддерживает встроенное видео.
+                <a href="PassivSkill.mp4">Открыть MP4-файл</a>.
+              </p>
+            </video>
+          </div>
+
+          <ul class="video-files" aria-label="Файлы демонстрации">
+            <li>PassivSkill.png</li>
+            <li>PassivSkill.mp4</li>
+          </ul>
+        </article>
+
+        <article class="video-card">
+          <div class="video-card-top">
+            <span>ДЕМОНСТРАЦИЯ НАВЫКА</span>
+            <span>04</span>
+          </div>
+
+          <h4>Защитный экран</h4>
+
+          <div class="video-frame">
+            <video
+              controls
+              playsinline
+              preload="none"
+              poster="UltimateSkill.png"
+              aria-label="Демонстрация навыка «Защитный экран»"
+            >
+              <source src="UltimateSkill.mp4" type="video/mp4">
+              <p>
+                Ваш браузер не поддерживает встроенное видео.
+                <a href="UltimateSkill.mp4">Открыть MP4-файл</a>.
+              </p>
+            </video>
+          </div>
+
+          <ul class="video-files" aria-label="Файлы демонстрации">
+            <li>UltimateSkill.png</li>
+            <li>UltimateSkill.mp4</li>
+          </ul>
+        </article>
+        </div>
+      </div>
+    </section>
+
     <!-- ИСТОРИЯ -->
     <section class="section wrap" id="history">
       <div class="section-heading">
-        <span class="section-number">04 /</span>
+        <span class="section-number">05 /</span>
         <div>
           <p class="section-kicker">Archive &amp; service record</p>
           <h2>История</h2>
@@ -1544,5 +1870,20 @@
       <a class="back-top" href="#top">НАВЕРХ ↑</a>
     </div>
   </footer>
+  <script>
+    (() => {
+      const videos = Array.from(document.querySelectorAll('.video-frame video'));
+
+      videos.forEach((video) => {
+        video.addEventListener('play', () => {
+          videos.forEach((other) => {
+            if (other !== video && !other.paused) {
+              other.pause();
+            }
+          });
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
