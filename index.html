@@ -1005,6 +1005,28 @@
       50% { height: 12px; }
     }
 
+    .audio-status {
+      max-width: 240px;
+      margin: 0;
+      color: #ffb4c2;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .6rem;
+      line-height: 1.35;
+      letter-spacing: .04em;
+    }
+
+    .audio-status:empty {
+      display: none;
+    }
+
+    .audio-player.is-error {
+      border-color: #7d4460;
+    }
+
+    .audio-player.is-error .audio-toggle {
+      border-color: rgba(255, 138, 168, .55);
+    }
+
     .audio-meter {
       width: 54px;
       height: 3px;
@@ -1167,14 +1189,22 @@
   <a class="skip" href="#main">Перейти к содержимому</a>
 
   <div class="audio-player" id="audio-player" data-audio="VesperTheme.mp3">
-    <audio id="theme-audio" loop preload="none" src="VesperTheme.mp3"></audio>
+    <audio id="theme-audio" loop preload="metadata" src="VesperTheme.mp3"></audio>
 
-    <button class="audio-toggle" id="audio-toggle" type="button" aria-pressed="false">
+    <button
+      class="audio-toggle"
+      id="audio-toggle"
+      type="button"
+      aria-pressed="false"
+      aria-describedby="audio-status"
+    >
       <span class="audio-icon" aria-hidden="true">
         <span></span><span></span><span></span><span></span>
       </span>
       <span id="audio-label">МУЗЫКА ВЫКЛ</span>
     </button>
+
+    <p class="audio-status" id="audio-status" role="status" aria-live="polite"></p>
 
     <div
       class="audio-meter"
@@ -2022,11 +2052,13 @@
       const audio = document.getElementById('theme-audio');
       const toggle = document.getElementById('audio-toggle');
       const label = document.getElementById('audio-label');
+      const status = document.getElementById('audio-status');
       const meter = document.getElementById('audio-meter');
       const meterFill = document.getElementById('audio-meter-fill');
       const STORAGE_KEY = 'vesper-audio';
-      /* audioWanted — пользователь не выключал музыку; звук ждёт первого действия */
+      /* audioWanted — музыка не выключена вручную, звук ждёт действия пользователя */
       let audioWanted = true;
+      let lastError = '';
 
       const remember = (on) => {
         try {
@@ -2034,6 +2066,31 @@
         } catch (error) {
           /* Приватный режим — просто не запоминаем выбор. */
         }
+      };
+
+      const describeError = () => {
+        const code = audio.error ? audio.error.code : 0;
+        const fileName = (audio.getAttribute('src') || '').split('/').pop();
+        const messages = {
+          1: `Загрузка ${fileName} прервана.`,
+          2: `Файл ${fileName} не загрузился: проверьте, что он лежит рядом с index.html.`,
+          3: `Браузер не может декодировать ${fileName}. Перекодируйте трек в MP3 или AAC.`,
+          4: `Файл ${fileName} не найден или формат не поддерживается. Проверьте имя, регистр букв и расширение.`
+        };
+
+        return messages[code] || `Не удалось воспроизвести ${fileName}. Проверьте файл в папке сайта.`;
+      };
+
+      const showError = (message) => {
+        lastError = message;
+        status.textContent = message;
+        player.classList.add('is-error');
+      };
+
+      const clearError = () => {
+        lastError = '';
+        status.textContent = '';
+        player.classList.remove('is-error');
       };
 
       const render = () => {
@@ -2046,9 +2103,29 @@
       const playAudio = () => {
         audioWanted = true;
         remember(true);
-        audio.play().then(render).catch(() => {
-          audioWanted = false;
+        clearError();
+
+        const attempt = audio.play();
+
+        if (!attempt || typeof attempt.then !== 'function') {
           render();
+          return;
+        }
+
+        attempt.then(render).catch((error) => {
+          render();
+
+          if (error && error.name === 'NotAllowedError') {
+            showError('Браузер ждёт нажатия: включите музыку кнопкой.');
+            return;
+          }
+
+          if (error && error.name === 'NotSupportedError') {
+            showError(describeError());
+            return;
+          }
+
+          showError(describeError());
         });
       };
 
@@ -2067,8 +2144,19 @@
         }
       });
 
-      audio.addEventListener('play', render);
+      audio.addEventListener('play', () => {
+        clearError();
+        render();
+      });
+
+      audio.addEventListener('playing', render);
       audio.addEventListener('pause', render);
+      audio.addEventListener('ended', render);
+
+      audio.addEventListener('error', () => {
+        render();
+        showError(describeError());
+      });
 
       /* Первое действие пользователя по странице включает музыку. */
       const startOnInteraction = (event) => {
@@ -2120,7 +2208,7 @@
         audio.currentTime = audio.duration * ratio;
       });
 
-      /* Выключенную вручную музыку не включаем повторно без явного клика. */
+      /* Ручное выключение запоминается, чтобы музыка не включалась сама снова. */
       try {
         if (window.sessionStorage.getItem(STORAGE_KEY) === 'off') {
           audioWanted = false;
@@ -2129,8 +2217,25 @@
         /* Ничего не делаем. */
       }
 
+      /* Диагностика: показываем проблему, если файл не читается или завис. */
+      audio.addEventListener('stalled', () => {
+        if (audio.paused && lastError === '') {
+          showError('Загрузка трека остановилась: возможно, файл слишком большой или медленный интернет.');
+        }
+      });
+
+      audio.addEventListener('loadstart', () => {
+        if (audio.error) {
+          showError(describeError());
+        }
+      });
+
+      if (audio.error) {
+        showError(describeError());
+      }
+
       render();
     })();
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a56d8ec21f2fb000',t:'MTc5NDA2NzI5Nw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a56d8ec21f2fb000',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a56da7427af27c85',t:'MTc5NDA2ODMwMQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a56da7427af27c85',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
