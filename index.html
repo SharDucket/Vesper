@@ -22,6 +22,11 @@
     Skill2.mp4        — Усиленный прыжок, обложка Skill2.png;
     PassivSkill.mp4   — Обнаружение жизни, обложка PassivSkill.png;
     UltimateSkill.mp4 — Защитный экран, обложка UltimateSkill.png.
+
+    Музыка: положите трек рядом с этой страницей под именем VesperTheme.mp3
+    (или укажите свой файл в атрибуте data-audio у элемента #audio-player).
+    Браузеры запускают звук только после действия пользователя, поэтому
+    музыка включается кнопкой в правом нижнем углу и на первом клике по странице.
   -->
 
   <style>
@@ -920,6 +925,124 @@
       color: #ad9aff;
     }
 
+    /* Музыка */
+
+    .audio-player {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px 8px 8px;
+      border: 1px solid #4a507e;
+      background: rgba(16, 19, 34, .92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 14px 34px rgba(4, 6, 16, .55);
+    }
+
+    .audio-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid rgba(172, 140, 255, .45);
+      background: rgba(104, 80, 198, .16);
+      color: #eee9ff;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease;
+    }
+
+    .audio-toggle:hover,
+    .audio-toggle:focus-visible {
+      border-color: var(--violet);
+      background: rgba(130, 98, 236, .26);
+      outline: none;
+    }
+
+    .audio-toggle:focus-visible {
+      outline: 2px solid var(--violet);
+      outline-offset: 3px;
+    }
+
+    .audio-icon {
+      display: inline-flex;
+      gap: 2px;
+      align-items: flex-end;
+      height: 12px;
+    }
+
+    .audio-icon span {
+      width: 2px;
+      height: 4px;
+      background: #c6bcff;
+      transition: height .2s ease;
+    }
+
+    .audio-player.is-playing .audio-icon span {
+      animation: audio-wave .9s ease-in-out infinite;
+    }
+
+    .audio-player.is-playing .audio-icon span:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .audio-player.is-playing .audio-icon span:nth-child(3) {
+      animation-delay: .3s;
+    }
+
+    .audio-player.is-playing .audio-icon span:nth-child(4) {
+      animation-delay: .45s;
+    }
+
+    @keyframes audio-wave {
+      0%, 100% { height: 4px; }
+      50% { height: 12px; }
+    }
+
+    .audio-meter {
+      width: 54px;
+      height: 3px;
+      background: rgba(172, 140, 255, .22);
+      cursor: pointer;
+    }
+
+    .audio-meter span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--violet), var(--blue));
+    }
+
+    @media (max-width: 680px) {
+      .audio-player {
+        right: 12px;
+        bottom: 12px;
+        gap: 8px;
+      }
+
+      .audio-meter {
+        display: none;
+      }
+
+      .audio-toggle {
+        font-size: .62rem;
+        padding: 7px 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .audio-player.is-playing .audio-icon span {
+        animation: none;
+        height: 12px;
+      }
+    }
+
     /* Мобильная версия */
 
     @media (max-width: 900px) {
@@ -1042,6 +1165,26 @@
 
 <body>
   <a class="skip" href="#main">Перейти к содержимому</a>
+
+  <div class="audio-player" id="audio-player" data-audio="VesperTheme.mp3">
+    <audio id="theme-audio" loop preload="none" src="VesperTheme.mp3"></audio>
+
+    <button class="audio-toggle" id="audio-toggle" type="button" aria-pressed="false">
+      <span class="audio-icon" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </span>
+      <span id="audio-label">МУЗЫКА ВЫКЛ</span>
+    </button>
+
+    <div
+      class="audio-meter"
+      id="audio-meter"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <span id="audio-meter-fill"></span>
+    </div>
+  </div>
 
   <header class="topbar">
     <div class="wrap topbar-inner">
@@ -1874,8 +2017,83 @@
     (() => {
       const videos = Array.from(document.querySelectorAll('.video-frame video'));
 
+      /* Музыка */
+      const player = document.getElementById('audio-player');
+      const audio = document.getElementById('theme-audio');
+      const toggle = document.getElementById('audio-toggle');
+      const label = document.getElementById('audio-label');
+      const meter = document.getElementById('audio-meter');
+      const meterFill = document.getElementById('audio-meter-fill');
+      const STORAGE_KEY = 'vesper-audio';
+      /* audioWanted — пользователь не выключал музыку; звук ждёт первого действия */
+      let audioWanted = true;
+
+      const remember = (on) => {
+        try {
+          window.sessionStorage.setItem(STORAGE_KEY, on ? 'on' : 'off');
+        } catch (error) {
+          /* Приватный режим — просто не запоминаем выбор. */
+        }
+      };
+
+      const render = () => {
+        const playing = !audio.paused && !audio.ended;
+        player.classList.toggle('is-playing', playing);
+        toggle.setAttribute('aria-pressed', playing ? 'true' : 'false');
+        label.textContent = playing ? 'МУЗЫКА ВКЛ' : 'МУЗЫКА ВЫКЛ';
+      };
+
+      const playAudio = () => {
+        audioWanted = true;
+        remember(true);
+        audio.play().then(render).catch(() => {
+          audioWanted = false;
+          render();
+        });
+      };
+
+      const pauseAudio = () => {
+        audioWanted = false;
+        remember(false);
+        audio.pause();
+        render();
+      };
+
+      toggle.addEventListener('click', () => {
+        if (audio.paused) {
+          playAudio();
+        } else {
+          pauseAudio();
+        }
+      });
+
+      audio.addEventListener('play', render);
+      audio.addEventListener('pause', render);
+
+      /* Первое действие пользователя по странице включает музыку. */
+      const startOnInteraction = (event) => {
+        if (!audioWanted || !audio.paused) {
+          return;
+        }
+
+        if (event.target.closest && event.target.closest('.video-frame video, .audio-player')) {
+          return;
+        }
+
+        playAudio();
+      };
+
+      ['pointerdown', 'keydown'].forEach((type) => {
+        document.addEventListener(type, startOnInteraction, { passive: true });
+      });
+
+      /* Видео важнее музыки: во время ролика трек ставится на паузу. */
       videos.forEach((video) => {
         video.addEventListener('play', () => {
+          if (!audio.paused) {
+            audio.pause();
+          }
+
           videos.forEach((other) => {
             if (other !== video && !other.paused) {
               other.pause();
@@ -1883,7 +2101,36 @@
           });
         });
       });
+
+      audio.addEventListener('timeupdate', () => {
+        if (!audio.duration) {
+          return;
+        }
+
+        meterFill.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+      });
+
+      meter.addEventListener('click', (event) => {
+        if (!audio.duration) {
+          return;
+        }
+
+        const rect = meter.getBoundingClientRect();
+        const ratio = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+        audio.currentTime = audio.duration * ratio;
+      });
+
+      /* Выключенную вручную музыку не включаем повторно без явного клика. */
+      try {
+        if (window.sessionStorage.getItem(STORAGE_KEY) === 'off') {
+          audioWanted = false;
+        }
+      } catch (error) {
+        /* Ничего не делаем. */
+      }
+
+      render();
     })();
   </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a56d8ec21f2fb000',t:'MTc5NDA2NzI5Nw=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a56d8ec21f2fb000',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
