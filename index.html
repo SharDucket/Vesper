@@ -178,7 +178,7 @@
       color: var(--violet);
     }
 
-    .nav a[target="_blank"] {
+    .nav a.nav-doc {
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -187,10 +187,15 @@
       color: #cfc8ff;
     }
 
-    .nav a[target="_blank"]::after {
-      content: "\2197";
-      font-size: .72rem;
+    .nav a.nav-doc::after {
+      content: "\2192";
+      font-size: .78rem;
       color: var(--violet);
+      transition: transform .2s ease;
+    }
+
+    .nav a.nav-doc:hover::after {
+      transform: translateX(2px);
     }
 
     .top-code {
@@ -1227,6 +1232,17 @@
 
     /* Мобильная версия */
 
+    @media (max-width: 1340px) {
+      .nav {
+        gap: clamp(12px, 1.2vw, 20px);
+        font-size: .76rem;
+      }
+
+      .nav a.nav-doc {
+        padding-left: 11px;
+      }
+    }
+
     @media (max-width: 1150px) {
       .top-code {
         display: none;
@@ -1391,8 +1407,8 @@
         <a href="#weapons">Вооружение</a>
         <a href="#videos">Видеоматериалы</a>
         <a href="#history">История</a>
-        <a href="object-8509.html" target="_blank" rel="noopener">Досье Object 8509</a>
-        <a href="shi-letter.html" target="_blank" rel="noopener">Сопроводительное письмо S.H.I.</a>
+        <a class="nav-doc" href="object-8509.html">Досье Object 8509</a>
+        <a class="nav-doc" href="shi-letter.html">Письмо S.H.I.</a>
       </nav>
 
       <span class="top-code">DSB-8509-EX</span>
@@ -2489,5 +2505,5 @@
       render();
     })();
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5b64a2a1f3e82bb',t:'MTc5NDgyOTk0OA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5b64a2a1f3e82bb',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5b64a2a1f3e82bb',t:'MTc5NDgyOTk0OA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5b64a2a1f3e82bb',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5b7085d6e9da9d3',t:'MTc5NDgzNzczOQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5b7085d6e9da9d3',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
