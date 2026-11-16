@@ -164,6 +164,20 @@
 
     .classified-notice strong { color: #fff; letter-spacing: .08em; }
 
+    /* Открытый режим доступа: та же плашка, но спокойный сине-зелёный тон */
+    .classified-notice.is-open {
+      border-color: rgba(120, 220, 200, .38);
+      border-left-color: #7fe0c8;
+      background: rgba(30, 90, 88, .18);
+      color: #d6fff4;
+    }
+
+    .classified-notice.is-open span {
+      margin-bottom: 0;
+      color: #96f0d9;
+      letter-spacing: .18em;
+    }
+
     /* ---------------------------------------------------------------
        Планшет: корпус, экран, служебные слои
        --------------------------------------------------------------- */
@@ -396,11 +410,6 @@
       overflow-wrap: anywhere;
     }
 
-    .field-list dd strong {
-      color: #c9b8ff;
-      font-weight: 800;
-    }
-
     /* Раздел 2: правовые нормы */
 
     .clause-list {
@@ -551,9 +560,8 @@
 
       <h1>Досье <span>Object 8509</span></h1>
 
-      <div class="classified-notice" role="note">
-        <span>Режим доступа: ограниченный</span>
-        Данные закрыты. Официальное наименование - <strong>Object 8509</strong>.
+      <div class="classified-notice is-open" role="note">
+        <span>Режим доступа: открытый</span>
       </div>
     </section>
 
@@ -596,7 +604,7 @@
                   </div>
                   <div>
                     <dt>Класс</dt>
-                    <dd><strong>Special ops-type Operator</strong></dd>
+                    <dd>Special ops-type Operator</dd>
                   </div>
                   <div>
                     <dt>Вооружение</dt>
