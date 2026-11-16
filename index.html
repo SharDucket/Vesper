@@ -9,6 +9,8 @@
 
   <!--
     Изображения: положите PNG-файлы в ту же папку, что и этот HTML.
+    Weapon1.png      — Dual SMG «Alterators» (раздел «Вооружение»);
+    Weapon2.png      — Twin Razors (раздел «Вооружение»);
     Skill1.png       — Полевой ремонт;
     Skill2.png       — Усиленный прыжок;
     PassivSkill.png  — Обнаружение жизни;
@@ -24,7 +26,7 @@
     UltimateSkill.mp4 — Защитный экран, обложка UltimateSkill.png.
 
     Дополнительные разделы (открываются отдельной вкладкой):
-    unrc.html      — Личное дело URNC;
+    object-8509.html — Досье Object 8509;
     shi-letter.html — Сопроводительное письмо S.H.I.
 
     Музыка: положите трек рядом с этой страницей под именем VesperTheme.mp3
@@ -804,6 +806,104 @@
       line-height: 1.6;
     }
 
+    /* Вооружение */
+
+    .weapon-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .weapon-card {
+      position: relative;
+      min-width: 0;
+      padding: clamp(20px, 2.6vw, 30px);
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(23, 25, 47, .98), rgba(14, 18, 35, .98));
+    }
+
+    .weapon-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+      color: #acb5d4;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+    }
+
+    .weapon-top span:last-child {
+      color: var(--violet);
+    }
+
+    /* Рамка под изображение. Пока PNG нет — видна заглушка с именем файла. */
+
+    .weapon-figure {
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid #4a507e;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(96, 70, 190, .22), transparent 62%),
+        #0d1122;
+      aspect-ratio: 16 / 10;
+    }
+
+    .weapon-figure img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #0d1122;
+    }
+
+    .weapon-figure img[hidden] {
+      display: none;
+    }
+
+    .weapon-placeholder {
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+      padding: 10px;
+      text-align: center;
+      color: #9fb2dd;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .weapon-placeholder strong {
+      color: #c3b5ff;
+      font-size: 1.5rem;
+      letter-spacing: .06em;
+    }
+
+    .weapon-card h3 {
+      margin-bottom: 0;
+      font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+      letter-spacing: -.03em;
+      overflow-wrap: anywhere;
+    }
+
+    .weapon-card h3 small {
+      display: block;
+      margin-top: 6px;
+      color: #9fa8c8;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
     /* Видеоматериалы */
 
     .video-group + .video-group {
@@ -1198,6 +1298,7 @@
       .systems-grid,
       .ability-grid,
       .feature-list,
+      .weapon-grid,
       .video-grid {
         grid-template-columns: 1fr;
       }
@@ -1287,9 +1388,10 @@
         <a href="#profile">Досье</a>
         <a href="#systems">Системы</a>
         <a href="#abilities">Способности</a>
+        <a href="#weapons">Вооружение</a>
         <a href="#videos">Видеоматериалы</a>
         <a href="#history">История</a>
-        <a href="unrc.html" target="_blank" rel="noopener">Личное дело URNC</a>
+        <a href="object-8509.html" target="_blank" rel="noopener">Досье Object 8509</a>
         <a href="shi-letter.html" target="_blank" rel="noopener">Сопроводительное письмо S.H.I.</a>
       </nav>
 
@@ -1730,10 +1832,83 @@
       </div>
     </section>
 
+    <!-- ВООРУЖЕНИЕ -->
+    <section class="section wrap" id="weapons" aria-labelledby="weapons-title">
+      <div class="section-heading">
+        <span class="section-number">04 /</span>
+        <div>
+          <p class="section-kicker">Armament</p>
+          <h2 id="weapons-title">Вооружение</h2>
+        </div>
+      </div>
+
+      <!--
+        Изображения вооружения: положите файлы в ту же папку, что и этот HTML
+        (или в корень репозитория на GitHub Pages).
+        Weapon1.png — Dual SMG «Alterators»;
+        Weapon2.png — Twin Razors.
+        Регистр букв важен. Пока файла нет, показывается заглушка с его именем.
+      -->
+
+      <div class="weapon-grid">
+        <article class="weapon-card">
+          <div class="weapon-top">
+            <span>ОСНОВНОЕ ВООРУЖЕНИЕ</span>
+            <span>01</span>
+          </div>
+
+          <div class="weapon-figure">
+            <span class="weapon-placeholder" aria-hidden="true">
+              <strong>01</strong>
+              Weapon1.png
+            </span>
+            <img
+              src="Weapon1.png"
+              alt="Основное вооружение — Dual SMG «Alterators»"
+              loading="lazy"
+              decoding="async"
+              onerror="this.hidden = true"
+            >
+          </div>
+
+          <h3>
+            Dual SMG «Alterators»
+            <small>Основное вооружение</small>
+          </h3>
+        </article>
+
+        <article class="weapon-card">
+          <div class="weapon-top">
+            <span>ВСПОМОГАТЕЛЬНОЕ ВООРУЖЕНИЕ</span>
+            <span>02</span>
+          </div>
+
+          <div class="weapon-figure">
+            <span class="weapon-placeholder" aria-hidden="true">
+              <strong>02</strong>
+              Weapon2.png
+            </span>
+            <img
+              src="Weapon2.png"
+              alt="Вспомогательное вооружение — Twin Razors"
+              loading="lazy"
+              decoding="async"
+              onerror="this.hidden = true"
+            >
+          </div>
+
+          <h3>
+            Twin Razors
+            <small>Вспомогательное вооружение</small>
+          </h3>
+        </article>
+      </div>
+    </section>
+
     <!-- ВИДЕОМАТЕРИАЛЫ -->
     <section class="section wrap" id="videos" aria-labelledby="videos-title">
       <div class="section-heading">
-        <span class="section-number">04 /</span>
+        <span class="section-number">05 /</span>
         <div>
           <p class="section-kicker">Video archive</p>
           <h2 id="videos-title">Видео<wbr>материалы</h2>
@@ -1911,7 +2086,7 @@
     <!-- ИСТОРИЯ -->
     <section class="section wrap" id="history">
       <div class="section-heading">
-        <span class="section-number">05 /</span>
+        <span class="section-number">06 /</span>
         <div>
           <p class="section-kicker">Archive &amp; service record</p>
           <h2>История</h2>
@@ -2314,5 +2489,5 @@
       render();
     })();
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5b600d25d72503b',t:'MTc5NDgyNjk0NA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5b600d25d72503b',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5b64a2a1f3e82bb',t:'MTc5NDgyOTk0OA=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5b64a2a1f3e82bb',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
