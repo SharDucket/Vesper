@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090b16">
+<meta name="description" content="Сопроводительное письмо Svarog Heavy Industries к объекту 8509 — официальный документ с подписями и печатью.">
+<title>Сопроводительное письмо S.H.I. — Object 8509</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #090b16;
+    --violet: #ac8cff;
+    --blue: #6ea8ff;
+
+    /* бумага и чернила */
+    --paper: #f3efe4;
+    --paper-2: #eae5d7;
+    --ink: #1a2030;
+    --ink-soft: #3b4459;
+    --ink-faint: #6d778c;
+    --rule: #2b3348;
+    --stamp: #3a3f86;
+    --stamp-2: #7a2e3c;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    color: #f1f2ff;
+    background:
+      radial-gradient(ellipse at 80% 4%, rgba(98, 65, 205, .20), transparent 34%),
+      radial-gradient(ellipse at 0% 60%, rgba(40, 96, 204, .14), transparent 30%),
+      var(--bg);
+    font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  /* ---------- Служебная шапка сайта ---------- */
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    border-bottom: 1px solid rgba(172, 140, 255, .20);
+    background: rgba(9, 11, 22, .94);
+    backdrop-filter: blur(14px);
+  }
+
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    width: min(1180px, calc(100% - 40px));
+    margin-inline: auto;
+    min-height: 68px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    font-weight: 900;
+    letter-spacing: .12em;
+    font-size: .88rem;
+  }
+
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--violet);
+    color: var(--violet);
+    font-size: .64rem;
+    letter-spacing: .06em;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-left: auto;
+    overflow-x: auto;
+    scrollbar-width: none;
+    color: #b9bfd9;
+    font-size: .78rem;
+    font-weight: 700;
+  }
+
+  .nav::-webkit-scrollbar { display: none; }
+
+  .nav a { white-space: nowrap; transition: color .2s ease; }
+  .nav a:hover { color: var(--violet); }
+
+  .top-code {
+    flex-shrink: 0;
+    color: #969fbe;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .68rem;
+    letter-spacing: .08em;
+  }
+
+  /* ---------- Сцена ---------- */
+
+  .stage {
+    width: min(1000px, calc(100% - 32px));
+    margin: clamp(24px, 4vw, 52px) auto clamp(40px, 6vw, 76px);
+  }
+
+  .stage-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    color: #9aa2c0;
+    font-size: .72rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .stage-bar .dot {
+    width: 6px; height: 6px;
+    background: var(--violet);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--violet);
+  }
+
+  .stage-bar .spacer { flex: 1 1 auto; }
+
+  .print-btn {
+    padding: 9px 16px;
+    border: 1px solid rgba(172, 140, 255, .45);
+    background: rgba(172, 140, 255, .10);
+    color: #d9d1ff;
+    font: inherit;
+    font-size: .7rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+  }
+
+  .print-btn:hover { background: var(--violet); color: #100d23; }
+
+  /* ---------- Лист документа ---------- */
+
+  .sheet {
+    position: relative;
+    isolation: isolate;
+    padding: clamp(26px, 4.4vw, 62px) clamp(20px, 4.6vw, 68px) clamp(20px, 3.4vw, 40px);
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image:
+      radial-gradient(ellipse at 12% 0%, rgba(255, 255, 255, .85), transparent 55%),
+      radial-gradient(ellipse at 92% 100%, rgba(178, 168, 140, .30), transparent 60%),
+      linear-gradient(160deg, var(--paper) 0%, var(--paper-2) 100%);
+    border: 1px solid #cfc8b4;
+    box-shadow:
+      0 1px 0 #fff inset,
+      0 30px 70px rgba(0, 0, 0, .55),
+      0 2px 6px rgba(0, 0, 0, .4);
+    font-family: Georgia, "Times New Roman", "PT Serif", serif;
+    font-size: clamp(.92rem, 1.05vw, 1rem);
+    line-height: 1.72;
+  }
+
+  /* зерно бумаги */
+  .sheet::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+  }
+
+  /* водяной знак */
+  .watermark {
+    position: absolute;
+    z-index: -1;
+    top: 46%;
+    left: 50%;
+    width: min(620px, 88%);
+    transform: translate(-50%, -50%) rotate(-24deg);
+    opacity: .05;
+    pointer-events: none;
+  }
+
+  /* ---------- Бланк ---------- */
+
+  .letterhead {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: clamp(12px, 2.4vw, 26px);
+    align-items: center;
+  }
+
+  .lh-emblem { width: clamp(56px, 7vw, 82px); height: auto; color: var(--ink); }
+
+  .lh-name {
+    margin: 0;
+    font-size: clamp(1.02rem, 2vw, 1.42rem);
+    font-weight: 700;
+    letter-spacing: .1em;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .lh-name span { display: block; }
+
+  .lh-name .lh-ru {
+    margin-top: 3px;
+    font-size: .52em;
+    font-weight: 400;
+    letter-spacing: .3em;
+    color: var(--ink-soft);
+  }
+
+  .lh-sub {
+    margin: 6px 0 0;
+    font-size: .72em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .lh-contacts {
+    max-width: 230px;
+    margin: 0;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .58rem;
+    line-height: 1.65;
+    letter-spacing: .04em;
+    text-align: right;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .lh-contacts b { display: block; color: var(--ink-soft); font-weight: 700; }
+
+  .rule-double {
+    margin: 14px 0 0;
+    border: 0;
+    border-top: 2px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    height: 4px;
+  }
+
+  /* ---------- Реквизиты ---------- */
+
+  .meta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 18px;
+    align-items: start;
+    margin-top: clamp(16px, 2.6vw, 28px);
+    font-size: .84em;
+  }
+
+  .meta .ref {
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .88em;
+    letter-spacing: .02em;
+    line-height: 1.85;
+    color: var(--ink-soft);
+  }
+
+  .meta .ref b { color: var(--ink); }
+
+  .addressee {
+    max-width: 330px;
+    margin: 0;
+    padding-left: 14px;
+    border-left: 2px solid #c3bba6;
+    font-size: .95em;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .addressee b { display: block; color: var(--ink); }
+  .addressee small { display: block; font-size: .9em; }
+
+  /* ---------- Заголовок ---------- */
+
+  .doc-title {
+    margin: clamp(22px, 3.4vw, 38px) 0 0;
+    text-align: center;
+  }
+
+  .doc-title h1 {
+    margin: 0;
+    font-size: clamp(1.12rem, 2.5vw, 1.62rem);
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+  }
+
+  .doc-title .doc-sub {
+    margin: 8px 0 0;
+    font-size: .88em;
+    letter-spacing: .08em;
+    color: var(--ink-soft);
+  }
+
+  .doc-title .doc-sub b { color: var(--ink); }
+
+  .title-rule {
+    width: 84px;
+    height: 3px;
+    margin: 14px auto 0;
+    background: var(--rule);
+  }
+
+  /* ---------- Текст письма ---------- */
+
+  .body-text { margin-top: clamp(18px, 2.6vw, 30px); }
+
+  .body-text p {
+    margin: 0 0 .72em;
+    text-indent: 1.9em;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .body-text p.no-indent { text-indent: 0; }
+
+  .salutation {
+    margin: 0 0 .9em;
+    font-weight: 700;
+    letter-spacing: .01em;
+  }
+
+  .body-text strong { font-weight: 700; }
+
+  .mark {
+    background: linear-gradient(180deg, transparent 62%, rgba(172, 140, 255, .38) 62%);
+  }
+
+  .clause {
+    margin: 0 0 .72em;
+    padding-left: 26px;
+    text-indent: -26px;
+    text-align: justify;
+  }
+
+  .clause .num {
+    margin-right: 9px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  .note-box {
+    margin: 1.1em 0 .4em;
+    padding: 12px 16px;
+    border: 1px solid #c0b8a3;
+    border-left: 4px solid var(--stamp);
+    background: rgba(255, 255, 255, .45);
+    font-size: .93em;
+  }
+
+  .note-box p { margin: 0; text-indent: 0; text-align: justify; }
+
+  .note-box .tag {
+    display: block;
+    margin-bottom: 4px;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .58rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .closing {
+    margin: 1.5em 0 0;
+    text-indent: 0;
+  }
+
+  /* ---------- Подписи и печати ---------- */
+
+  .signatures {
+    position: relative;
+    margin-top: clamp(24px, 3.6vw, 42px);
+    padding-top: clamp(18px, 2.6vw, 30px);
+    border-top: 1px solid #c3bba6;
+  }
+
+  .signatures::before {
+    content: "Подписи сторон";
+    position: absolute;
+    top: -9px;
+    left: 0;
+    padding-right: 10px;
+    background: var(--paper);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .55rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .sign-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(12px, 2.6vw, 30px);
+  }
+
+  .sign { position: relative; }
+
+  .sign-space {
+    position: relative;
+    height: 58px;
+    margin-bottom: 6px;
+  }
+
+  .sign:nth-child(1) .sign-stroke { transform: rotate(-1.5deg); }
+  .sign:nth-child(2) .sign-stroke { transform: rotate(1.2deg); }
+  .sign:nth-child(3) .sign-stroke { transform: rotate(-.8deg); }
+
+  .sign-stroke {
+    position: absolute;
+    left: 2px;
+    bottom: 4px;
+    width: 100%;
+    max-width: 230px;
+    height: 62px;
+    color: #17245c;
+    opacity: .88;
+  }
+
+  .sign-line {
+    display: block;
+    height: 1px;
+    background: #8e8878;
+  }
+
+  .sign-role {
+    margin: 6px 0 0;
+    font-size: .82em;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: .02em;
+  }
+
+  .sign-role small {
+    display: block;
+    font-weight: 400;
+    font-size: .86em;
+    letter-spacing: .04em;
+    color: var(--ink-faint);
+  }
+
+  .sign-initials {
+    margin: 4px 0 0;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .55rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* печать */
+  .seal-wrap {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(150px, 1fr) auto;
+    align-items: center;
+    gap: clamp(12px, 2.2vw, 26px);
+    margin-top: clamp(20px, 3vw, 32px);
+    padding-top: 6px;
+  }
+
+  .seal {
+    flex-shrink: 0;
+    width: clamp(120px, 17vw, 168px);
+    height: auto;
+    color: var(--stamp);
+    opacity: .8;
+    mix-blend-mode: multiply;
+    filter: url(#ink-rough);
+  }
+
+  .seal.rotate-l { transform: rotate(-9deg); }
+  .seal.rotate-r { transform: rotate(6deg); color: var(--stamp); }
+
+  .seal-caption {
+    margin: 0;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .55rem;
+    line-height: 1.8;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .seal-caption b { display: block; color: var(--ink-soft); }
+
+  /* прямоугольные штампы */
+  .stamp-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+  }
+
+  .stamp {
+    width: 100%;
+    max-width: 200px;
+    padding: 7px 10px 6px;
+    border: 2px solid var(--stamp-2);
+    color: var(--stamp-2);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .53rem;
+    line-height: 1.55;
+    letter-spacing: .1em;
+    text-align: center;
+    text-transform: uppercase;
+    opacity: .74;
+    mix-blend-mode: multiply;
+    filter: url(#ink-rough);
+  }
+
+  .stamp b { display: block; font-size: 1.35em; letter-spacing: .16em; }
+  .stamp span { display: block; }
+
+  .stamp.accept { transform: rotate(-6deg); }
+  .stamp.legal { transform: rotate(3.5deg); }
+
+  /* ---------- Низ листа ---------- */
+
+  .sheet-footer {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: clamp(22px, 3.4vw, 36px);
+    padding-top: 10px;
+    border-top: 1px solid #c3bba6;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: .55rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .sheet-footer .classif { color: var(--stamp-2); font-weight: 700; }
+
+  .barcode {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 22px;
+  }
+
+  .barcode i { display: block; width: 1px; background: var(--ink); opacity: .75; }
+
+  .sheet-note {
+    margin: 14px 0 0;
+    font-size: .58rem;
+    line-height: 1.7;
+    letter-spacing: .05em;
+    text-align: center;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- Адаптив ---------- */
+
+  @media (max-width: 860px) {
+    .letterhead { grid-template-columns: auto 1fr; }
+    .lh-contacts { grid-column: 1 / -1; max-width: none; text-align: left; }
+    .meta { grid-template-columns: 1fr; }
+    .addressee { max-width: none; order: -1; }
+    .sign-grid { grid-template-columns: 1fr; gap: 26px; }
+    .seal-wrap { grid-template-columns: auto 1fr; align-items: start; }
+    .stamp-stack { grid-column: 1 / -1; align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+  }
+
+  @media (max-width: 520px) {
+    .top-code { display: none; }
+    .body-text p { text-indent: 1.3em; }
+    .seal-wrap { grid-template-columns: 1fr; }
+    .stamp-stack { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ---------- Печать ---------- */
+
+  @page { size: A4; margin: 10mm 13mm; }
+
+  @media print {
+    html { background: #fff !important; }
+    body { background: #fff !important; }
+    .topbar, .stage-bar, .print-btn { display: none !important; }
+    .stage { width: 182mm; margin: 0 auto; }
+    .sheet {
+      width: auto;
+      padding: 0;
+      border: 0;
+      box-shadow: none;
+      font-size: 8.3pt;
+      line-height: 1.45;
+    }
+    .sheet::before { opacity: .22; }
+    .stamp, .seal { filter: none; }
+    .signatures, .seal-wrap, .sheet-footer { break-inside: avoid; }
+
+    /* на печати возвращаем «широкую» вёрстку — лист A4 шире мобильного экрана */
+    .letterhead { grid-template-columns: auto 1fr auto; }
+    .lh-contacts { grid-column: auto; max-width: 230px; text-align: right; }
+    .meta { grid-template-columns: 1fr auto; }
+    .addressee { order: 0; max-width: 330px; padding-left: 14px; }
+    .sign-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .sign-space { height: 40px; }
+    .seal-wrap { grid-template-columns: auto 1fr auto; align-items: center; }
+    .stamp-stack { flex-direction: column; align-items: flex-end; gap: 7px; }
+    .seal { width: 88px; }
+    .seal-wrap { margin-top: 8px; gap: 12px; }
+    .seal-caption { font-size: .48rem; line-height: 1.55; }
+    .stamp { font-size: .46rem; padding: 5px 7px 4px; max-width: 160px; }
+    .signatures { margin-top: 16px; padding-top: 14px; }
+    .sheet-footer { margin-top: 12px; padding-top: 8px; }
+    .sheet-note { margin-top: 9px; font-size: .52rem; }
+    .body-text { margin-top: 14px; }
+    .doc-title { margin-top: 16px; }
+    .meta { margin-top: 12px; }
+  }
+</style>
+</head>
+
+<body>
+<!-- общие фильтры и символы -->
+<svg class="svg-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="ink-rough" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="11" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="Vesper — досье">
+      <span class="brand-mark">SF</span>
+      <span>S.H.I. / URNC</span>
+    </a>
+
+    <nav class="nav" aria-label="Навигация">
+      <a href="index.html">← В досье Vesper</a>
+      <a href="object-8509.html">Досье Object 8509</a>
+      <a href="shi-letter.html">Сопроводительное письмо</a>
+    </nav>
+
+    <span class="top-code">S.H.I.-URNC/8509-011</span>
+  </div>
+</header>
+
+<main class="stage">
+  <div class="stage-bar">
+    <span class="dot" aria-hidden="true"></span>
+    <span>Исходящий документ · Svarog Heavy Industries</span>
+    <span class="spacer"></span>
+    <button class="print-btn" type="button" onclick="window.print()">Печать / PDF</button>
+  </div>
+
+  <article class="sheet" aria-labelledby="letter-title">
+    <!-- водяной знак -->
+    <svg class="watermark" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+      <circle cx="200" cy="200" r="186" fill="none" stroke="#1a2030" stroke-width="2"/>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="#1a2030" stroke-width="1"/>
+      <text x="200" y="196" text-anchor="middle" font-family="Georgia, serif" font-size="58" font-weight="700" letter-spacing="6" fill="#1a2030">S.H.I.</text>
+      <text x="200" y="240" text-anchor="middle" font-family="monospace" font-size="19" letter-spacing="4" fill="#1a2030">OBJECT 8509</text>
+    </svg>
+
+    <!-- Бланк -->
+    <div class="letterhead">
+      <svg class="lh-emblem" viewBox="0 0 100 100" role="img" aria-label="Эмблема Svarog Heavy Industries">
+        <g fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="50" cy="50" r="46"/>
+          <polygon points="50,10 71,18 84,37 84,63 71,82 50,90 29,82 16,63 16,37 29,18"/>
+        </g>
+        <path d="M64 30c-6-4-14-4-19 1-6 6-3 13 4 16 8 3 12 7 9 13-3 6-11 8-18 5" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        <path d="M50 62v14" fill="none" stroke="currentColor" stroke-width="3"/>
+        <circle cx="50" cy="50" r="3.4" fill="currentColor"/>
+      </svg>
+
+      <div>
+        <p class="lh-name">
+          <span>Svarog Heavy Industries</span>
+          <span class="lh-ru">СВАРОГ ХЕВИ ИНДАСТРИЗ</span>
+        </p>
+        <p class="lh-sub">Отдел полевых испытаний и прикладной интеграции</p>
+      </div>
+
+      <p class="lh-contacts">
+        <b>Промышленный сектор «Сибирь-7»</b>
+        блок S-04, корпус 12<br>
+        защищённый канал: SHI-SEC-07<br>
+        линия испытаний: доб. 8509<br>
+        вх. реестр: S.H.I./RE-2076
+      </p>
+    </div>
+
+    <hr class="rule-double">
+
+    <!-- Реквизиты -->
+    <div class="meta">
+      <div class="ref">
+        Исх. № <b>S.H.I.-URNC/8509-011</b><br>
+        от «16» ноября 2076 г.<br>
+        На № ______ от «___» __________ 20___ г.
+      </div>
+
+      <p class="addressee">
+        <b>Командованию URNC</b>
+        <small>Центральный штаб,<br>отдел полевых испытаний<br>и приёма опытных образцов</small>
+      </p>
+    </div>
+
+    <!-- Заголовок -->
+    <div class="doc-title">
+      <h1 id="letter-title">Сопроводительное письмо</h1>
+      <p class="doc-sub">к объекту <b>8509</b> (кукла <b>DSB-8509-EX «VESPER»</b>)</p>
+      <div class="title-rule" role="presentation"></div>
+    </div>
+
+    <!-- Текст -->
+    <div class="body-text">
+      <p class="no-indent salutation">Приветствуем действующий офицерский состав URNC.</p>
+
+      <p>
+        Согласно договору с центральным штабом, к вам на полевые испытания
+        направляется кукла под наименованием <strong>Объект 8509</strong>.
+      </p>
+
+      <p>
+        Данная кукла является собственностью <strong>Svarog Heavy Industries</strong>
+        и <span class="mark">не отражает финальное качество продукта</span>.
+      </p>
+
+      <p class="clause">
+        <span class="num">1.</span>В случае возникновения каких-либо проблем кукла должна быть
+        передана обратно на завод-производитель для дальнейшей калибровки.
+      </p>
+
+      <p class="clause">
+        <span class="num">2.</span>Кукла является военным юнитом с функцией командования малыми
+        группами — при необходимости. Вооружена специализированным,
+        не массовым вооружением.
+      </p>
+
+      <p class="clause">
+        <span class="num">3.</span>Все технологии и вооружение также являются собственностью S.H.I.
+        Любое вмешательство, техническое изменение и т.&nbsp;д. является нарушением
+        права интеллектуальной собственности.
+      </p>
+
+      <p class="clause">
+        <span class="num">4.</span>Все данные о кукле передаются дистанционно на серверы S.H.I.
+        совместно с бэкапом, который проводится автоматически раз в 3 дня.
+      </p>
+
+      <div class="note-box">
+        <span class="tag">Особое условие · п. 4.1</span>
+        <p>
+          В случае, если по какой-либо причине данные перестают поступать, у куклы имеется
+          физический носитель, шифрующий информацию: все данные, включая бэкап, должны
+          записываться исключительно на него. Доступ к работе с информацией на данном
+          носителе имеют исключительно сотрудники S.H.I.
+        </p>
+      </div>
+
+      <p>
+        О любых проблемах просьба сообщать — будем рады оказать посильную помощь
+        в тестировании нового продукта.
+      </p>
+
+      <p class="closing">С уважением,<br><strong>Svarog Heavy Industries</strong></p>
+    </div>
+
+    <!-- Подписи -->
+    <section class="signatures" aria-label="Подписи отделов Svarog Heavy Industries">
+      <div class="sign-grid">
+        <div class="sign">
+          <div class="sign-space">
+            <svg class="sign-stroke" viewBox="0 0 240 74" aria-hidden="true" focusable="false">
+              <use href="#sig-a"/>
+            </svg>
+          </div>
+          <span class="sign-line"></span>
+          <p class="sign-role">Технический отдел <small>Svarog Heavy Industries</small></p>
+          <p class="sign-initials">подпись / расшифровка</p>
+        </div>
+
+        <div class="sign">
+          <div class="sign-space">
+            <svg class="sign-stroke" viewBox="0 0 240 80" aria-hidden="true" focusable="false">
+              <use href="#sig-b"/>
+            </svg>
+          </div>
+          <span class="sign-line"></span>
+          <p class="sign-role">Инженерный отдел <small>Svarog Heavy Industries</small></p>
+          <p class="sign-initials">подпись / расшифровка</p>
+        </div>
+
+        <div class="sign">
+          <div class="sign-space">
+            <svg class="sign-stroke" viewBox="0 0 240 80" aria-hidden="true" focusable="false">
+              <use href="#sig-c"/>
+            </svg>
+          </div>
+          <span class="sign-line"></span>
+          <p class="sign-role">Юридический отдел <small>Svarog Heavy Industries</small></p>
+          <p class="sign-initials">подпись / расшифровка</p>
+        </div>
+      </div>
+
+      <!-- Печать -->
+      <div class="seal-wrap">
+        <svg class="seal rotate-l" viewBox="0 0 200 200" role="img" aria-label="Печать Svarog Heavy Industries">
+          <defs>
+            <path id="seal-arc-top" d="M100,100 m-78,0 a78,78 0 1,1 156,0"/>
+            <path id="seal-arc-bottom" d="M100,100 m-79,0 a79,79 0 0,0 158,0"/>
+
+            <g id="sig-a" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 56c6-26 16-40 24-34 8 6-6 24-14 20-8-4 12-14 24-8 12 6 4 20-4 16-7-4 10-18 24-12 12 5 6 18-2 14-7-4 10-16 24-10 11 5 10 14 22 12 12-2 20-16 34-12 12 3 9 14 23 10 12-3 26-16 46-14" stroke-width="2.4"/>
+              <path d="M22 66c58-6 130-2 214-8" stroke-width="1.2" opacity=".7"/>
+            </g>
+            <g id="sig-b" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M26 66c2-30 6-50 14-52 10-2 8 20-2 26-6 4 4 8 14 4 12-5 14-18 24-14 8 4-2 16-8 14 12-2 18-14 30-12 10 2 6 14 16 14 12 0 14-16 28-14 12 2 6 16 20 14 14-2 22-14 36-12" stroke-width="2.2"/>
+              <path d="M30 62h180" stroke-width="1.1" opacity=".7"/>
+              <circle cx="205" cy="58" r="2.2" fill="currentColor" stroke="none"/>
+            </g>
+            <g id="sig-c" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 60c10-8 16-30 10-38-4-6-14 0-12 12 2 14 18 16 34 14 18-2 22-14 34-12 10 2 4 14 16 14 12 0 12-16 26-14 12 2 6 16 20 12 12-4 18-16 30-14 10 2 8 12 20 10" stroke-width="2.3"/>
+              <path d="M150 22c14 8 24 18 30 34" stroke-width="1.6" opacity=".9"/>
+              <path d="M22 66c60 2 120-2 190-4" stroke-width="1.1" opacity=".65"/>
+            </g>
+          </defs>
+          <g fill="none" stroke="currentColor">
+            <circle cx="100" cy="100" r="94" stroke-width="3"/>
+            <circle cx="100" cy="100" r="87" stroke-width="1"/>
+            <circle cx="100" cy="100" r="58" stroke-width="1.2"/>
+            <circle cx="100" cy="100" r="52" stroke-width="2.6"/>
+          </g>
+          <g fill="currentColor" font-family="ui-monospace, Consolas, monospace" font-weight="700">
+            <text font-size="13" letter-spacing="2.4">
+              <textPath href="#seal-arc-top" startOffset="50%" text-anchor="middle">SVAROG HEAVY INDUSTRIES</textPath>
+            </text>
+            <text font-size="8.6" letter-spacing="1.4">
+              <textPath href="#seal-arc-bottom" startOffset="50%" text-anchor="middle">SIBERIA-7 · OBJ. 8509 · URNC</textPath>
+            </text>
+          </g>
+          <g fill="none" stroke="currentColor">
+            <path d="M100 60c-13-3-22 3-22 13 0 9 8 12 14 15 7 3 12 6 12 12 0 7-8 11-18 9" stroke-width="5" stroke-linecap="round"/>
+            <path d="M100 118v12" stroke-width="3"/>
+          </g>
+          <g fill="currentColor" font-family="ui-monospace, Consolas, monospace" font-size="9" letter-spacing="1.6" text-anchor="middle">
+            <text x="100" y="146" font-size="8">M.P.</text>
+          </g>
+        </svg>
+
+        <p class="seal-caption">
+          <b>Печать Svarog Heavy Industries</b>
+          оттиск действителен только при наличии<br>
+          подписи уполномоченного сотрудника<br>
+          M.P. · S.H.I.-URNC/8509-011
+        </p>
+
+        <div class="stamp-stack">
+          <div class="stamp accept" aria-hidden="true">
+            <b>Принято</b>
+            <span>Отдел полевых испытаний URNC</span>
+            <span>«16» ноября 2076 г.</span>
+            <span>вх. № 8509/ПИ</span>
+          </div>
+
+          <div class="stamp legal" aria-hidden="true">
+            <b>Согласовано</b>
+            <span>Юридический отдел S.H.I.</span>
+            <span>без права тиражирования</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Низ листа -->
+    <footer class="sheet-footer">
+      <span class="classif">ДСП · для служебного пользования</span>
+      <span>Лист 1 из 1</span>
+      <span class="barcode" aria-hidden="true">
+        <i style="height:100%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:45%"></i>
+        <i style="height:100%"></i><i style="height:85%"></i><i style="height:60%"></i><i style="height:100%"></i>
+        <i style="height:50%"></i><i style="height:90%"></i><i style="height:100%"></i><i style="height:35%"></i>
+        <i style="height:80%"></i><i style="height:100%"></i><i style="height:55%"></i><i style="height:95%"></i>
+        <i style="height:100%"></i><i style="height:40%"></i><i style="height:85%"></i><i style="height:100%"></i>
+        <i style="height:65%"></i><i style="height:100%"></i><i style="height:50%"></i><i style="height:90%"></i>
+        <i style="height:100%"></i><i style="height:75%"></i>
+      </span>
+      <span>S.H.I.-URNC/8509-011</span>
+    </footer>
+
+    <p class="sheet-note">
+      Документ содержит сведения ограниченного доступа и подлежит возврату по требованию
+      Svarog Heavy Industries. Копирование и передача третьим лицам запрещены.
+    </p>
+  </article>
+</main>
+</body>
+</html>
