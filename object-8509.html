@@ -451,6 +451,107 @@
 
     .clause-list li.is-prohibited b { color: #ffc2d0; }
 
+    /* Раздел 3: состояние куклы */
+
+    .state-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 18px;
+      margin: 0 0 4px;
+      color: #7d8db3;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .state-meta .led {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #96f0d9;
+    }
+
+    .state-meta .led i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 9px currentColor;
+      animation: led-pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes led-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .35; }
+    }
+
+    .state-list {
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .state-list li {
+      display: grid;
+      grid-template-columns: minmax(160px, .42fr) 1fr auto;
+      align-items: start;
+      gap: 4px 16px;
+      padding: 13px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, .07);
+    }
+
+    .state-list li:last-child { border-bottom: 0; }
+
+    .state-name {
+      color: #eef2ff;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+    }
+
+    .state-note {
+      grid-column: 1 / -1;
+      margin: 2px 0 0;
+      color: #a9b4d0;
+      font-size: .84rem;
+      line-height: 1.6;
+    }
+
+    .state-badge {
+      grid-column: 2;
+      justify-self: start;
+      align-self: start;
+      padding: 3px 9px;
+      border: 1px solid currentColor;
+      background: rgba(255, 255, 255, .04);
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .56rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      line-height: 1.5;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .state-badge.is-on { color: #7fe0c8; background: rgba(127, 224, 200, .10); }
+    .state-badge.is-off { color: #8b9ac0; background: rgba(139, 154, 192, .10); }
+    .state-badge.is-warn { color: #ffcf7a; background: rgba(255, 207, 122, .10); }
+
+    .state-code {
+      grid-column: 3;
+      grid-row: 1;
+      color: #6d7ba6;
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding-top: 4px;
+    }
+
     /* Подпись */
 
     .signature {
@@ -532,6 +633,10 @@
       .field-list > div { grid-template-columns: 1fr; gap: 4px; }
       .clause-list li { padding-left: 34px; font-size: .86rem; }
       .clause-list li::before { top: 12px; }
+      .state-list li { grid-template-columns: 1fr; gap: 7px; }
+      .state-badge { grid-column: 1; justify-self: start; }
+      .state-note { margin-top: 0; }
+      .state-code { display: none; }
       .tablet-zone { padding-bottom: 60px; }
     }
 
@@ -666,6 +771,63 @@
                   <strong>Svarog Heavy Industries</strong>
                   <div class="sign-line" aria-hidden="true"></div>
                 </div>
+              </div>
+            </article>
+
+            <!-- РАЗДЕЛ 3 -->
+            <article class="screen-section">
+              <div class="screen-section-head">
+                <span class="screen-section-index">03 /</span>
+                <h3>Состояние куклы</h3>
+              </div>
+
+              <div class="screen-section-body">
+                <p class="state-meta">
+                  <span class="led"><i aria-hidden="true"></i> Телеметрия в норме</span>
+                  <span>Синхронизация: 16.11.2076 / 04:12</span>
+                  <span>Канал: SHI-SEC-07</span>
+                </p>
+
+                <ul class="state-list">
+                  <li>
+                    <span class="state-name">Командный модуль</span>
+                    <span class="state-badge is-off">Пассивный&nbsp;режим</span>
+                    <span class="state-code">CMD-01</span>
+                    <p class="state-note">Неактивен.</p>
+                  </li>
+
+                  <li>
+                    <span class="state-name">Защитные протоколы</span>
+                    <span class="state-badge is-on">Активны</span>
+                    <span class="state-code">DEF-02</span>
+                  </li>
+
+                  <li>
+                    <span class="state-name">Боевые протоколы</span>
+                    <span class="state-badge is-on">Активны</span>
+                    <span class="state-code">CMB-03</span>
+                  </li>
+
+                  <li>
+                    <span class="state-name">Эмоциональный модуль</span>
+                    <span class="state-badge is-warn">Стабильно</span>
+                    <span class="state-code">EMT-04</span>
+                    <p class="state-note">
+                      Базовое состояние стабильно, может потребоваться
+                      точечная калибровка.
+                    </p>
+                  </li>
+
+                  <li>
+                    <span class="state-name">Характер</span>
+                    <span class="state-badge is-warn">Требует отладки</span>
+                    <span class="state-code">PSY-05</span>
+                    <p class="state-note">
+                      Может потребоваться отладка, в социальной среде
+                      не тестировалась.
+                    </p>
+                  </li>
+                </ul>
               </div>
             </article>
 
